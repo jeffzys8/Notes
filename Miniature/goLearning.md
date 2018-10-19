@@ -1,7 +1,3 @@
-<h1> Go语言学习 </h1>
-
-
-## 目录：
 - [HelloWorld](#helloworld)
 - [基础](#基础)
 	- [包](#包)
@@ -116,8 +112,6 @@ func split(sum int) (x, y int) {
 }
 ```
 
-<hr>
-
 ## 变量
 又是一个例子
 ```Go
@@ -217,7 +211,6 @@ var f float64 = i
 ```Go
 const World = "世界"
 ```
-<hr>
 
 ## 控制语句
 
@@ -327,7 +320,6 @@ func main() {
     0
 */
 ```
-<hr>
 
 ## 指针
 
@@ -345,7 +337,6 @@ var p *int = &i
 fmt.Println(*p)
 *p = 21
 ```
-<hr>
 
 ## 结构体
 简单例子
@@ -379,8 +370,6 @@ p := &v
 p.X = 1e9
 fmt.Println(v)
 ```
-
-<hr>
 
 ## 数组和切片
 数组例子，大小需为常数
@@ -551,7 +540,6 @@ func main() {
 	pic.Show(Pic)
 }
 ```
-<hr>
 
 ## 映射
 
@@ -647,7 +635,6 @@ func main() {
 	wc.Test(WordCount)
 }
 ```
-<hr>
 
 ## 函数值
 
@@ -681,6 +668,7 @@ func main() {
 函数闭包指的是这样的“**函数值**”：该函数值代表的函数使用了函数体外（非全局）的函数；这样就使得这个函数某种意义上来说“附于”这个/这些变量（有种对象的感觉了，只不过这个对象只有一个方法）
 
 ```Go
+/*注意这里 adder 并不是一个函数闭包，adder()才是*/
 func adder() func(int) int {
 	sum := 0
 	return func(x int) int {
@@ -793,7 +781,7 @@ func main() {
 }
 ```
 
-同样地，在函数声明里这样
+同样地，在方法声明里这样
 ```Go
 func (v Vertex) Scale(f float64)
 ```
@@ -802,3 +790,177 @@ func (v Vertex) Scale(f float64)
 **总而言之，方法是否能修改对象，要看函数声明的形参，和实参没有关系**
 
 ## 接口
+
+接口类型的变量可以保存任何实现了这些方法的值
+
+一个例子：
+```Go
+type Abser interface {
+	Abs() float64
+}
+
+func main() {
+	var a Abser
+	f := MyFloat(-math.Sqrt2)
+	v := Vertex{3, 4}
+
+	a = f  // a MyFloat 实现了 Abser
+	a = &v // a *Vertex 实现了 Abser
+
+	// 下面一行，v 是一个 Vertex（而不是 *Vertex）
+	// 所以没有实现 Abser。
+	//a = v
+
+	fmt.Println(a.Abs())
+}
+
+type MyFloat float64
+
+func (f MyFloat) Abs() float64 {
+	if f < 0 {
+		return float64(-f)
+	}
+	return float64(f)
+}
+
+type Vertex struct {
+	X, Y float64
+}
+
+func (v *Vertex) Abs() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+```
+
+```接口值```也是一个对象，包含了具体对象的值以及它的类型，可以用printf输出；<br>
+未赋值的接口值其对象值和类型都为```<nil>```
+```Go
+type I interface {
+	M()
+}
+
+type T struct {
+	S string
+}
+
+func (t T) M() {
+	fmt.Println(t.S)
+}
+
+func main() {
+	var i I
+
+	i = T{"Hello"}
+	describe(i)
+	i.M()
+	fmt.Printf("(%v, %T)\n", i, i)
+}
+
+/*
+结果：({Hello}, main.T)
+*/
+```
+
+如果将某个类型的```nil```对象赋予某个接口，方法依然会被调用
+```Go
+var t *T
+i = t
+fmt.Printf("(%v, %T)\n", i, i)
+i.M()
+
+/*
+输出(<nil>, *main.T), 但M方法仍然会被调用
+*/
+```
+
+对```nil```接口（注意不是和上面的```nil```对象值不同，这里是连类型都是```nil```）调用方法会panic
+
+```Go
+var i I
+i.M() //报错
+```
+
+空接口的妙用：可以保存任意类型的值！（怎么有种Javascript的感觉了）
+```Go
+var i interface{}
+i = 42
+i = "hello"
+```
+
+类型断言：判断接口是不是某个类型，并且赋值
+```Go
+var i interface{} = "hello"	//string 类型
+
+/* 若 i 保存了一个 T，那么 t 将会是其底层值，而 ok 为 true */
+s, ok := i.(string)	
+fmt.Println(s, ok)
+
+/* 若 i 保存的不是一个 T，ok 将为 false 而 t 将为 T 类型的零值 */
+f, ok := i.(float64)
+fmt.Println(f, ok)
+
+/* 不是T，又没有OK => panic */
+f = i.(float64) 
+fmt.Println(f)
+```
+
+接口类型选择(switch)
+```Go
+switch v := i.(type) {
+case int:
+	fmt.Printf("Twice %v is %v\n", v, v*2)
+case string:
+	fmt.Printf("%q is %v bytes long\n", v, len(v))
+default:
+	fmt.Printf("I don't know about type %T!\n", v)
+}
+```
+
+**Stringer**类型，在```fmt```中的，是最普遍的接口之一。比如一个Print一个对象，默认会输出对象数据，但可以通过实现 ```String()```方法改变输出
+
+```Go
+type Person struct {
+	Name string
+	Age  int
+}
+
+func (p Person) String() string {
+	return fmt.Sprintf("%v (%v years)", p.Name, p.Age)
+}
+
+func main() {
+	a := Person{"Arthur Dent", 42}
+	fmt.Println(a)
+}
+
+/*
+当前输出： Arthur Dent (42 years)
+如果不实现String()方法：{Arthur Dent 42}
+*/
+```
+
+练习：输出IP地址。用到了fmt.Sprintf
+```Go
+package main
+import "fmt"
+
+type IPAddr [4]byte
+
+// TODO: Add a "String() string" method to IPAddr
+func (i IPAddr) String() string{
+	var result string
+	result = fmt.Sprintf("%v.%v.%v.%v",i[0],i[1],i[2],i[3])
+	return result
+}
+
+func main() {
+	hosts := map[string]IPAddr{
+		"loopback":  {127, 0, 0, 1},
+		"googleDNS": {8, 8, 8, 8},
+	}
+	for name, ip := range hosts {
+		fmt.Printf("%v: %v\n", name, ip)
+	}
+}
+```

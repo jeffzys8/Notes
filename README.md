@@ -4,9 +4,10 @@
 
 ## 主目录
 
-- [Web全栈学习](Web/README.md)
-- [Android学习](Android/README.md)
+- [Web全栈](Web/README.md)
+- [Android](Android/README.md)
+- [Linux](Linux/README.md)
 
 ## 小型藏品
 
-- [Go学习](Miniature/goLearning.md)
+- [GoLang](Miniature/goLearning.md)

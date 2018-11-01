@@ -4,9 +4,10 @@
 
 ## 主目录
 
+- [算法](Algorithms/README.md)
 - [Web全栈](Web/README.md)
-- [Android](Android/README.md)
 - [Linux](Linux/README.md)
+- [Android](Android/README.md)
 
 ## 小型藏品
 

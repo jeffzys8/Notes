@@ -8,4 +8,5 @@
 
 ## 基础内容
 
-- [组装Linux机器的硬件选择](http://linux.vbird.org/linux_basic/0130designlinux.php#hardware_select)
+- [组装Linux机器的硬件选择 - 鸟哥](http://linux.vbird.org/linux_basic/0130designlinux.php#hardware_select)
+- [主机规划与磁盘分割 - 笔记](主机规划与磁盘分割.md)

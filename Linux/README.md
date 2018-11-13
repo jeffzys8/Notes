@@ -9,5 +9,6 @@
 ## 基础内容
 
 - [组装Linux机器的硬件选择 - 鸟哥](http://linux.vbird.org/linux_basic/0130designlinux.php#hardware_select)
-- [主机规划与磁盘分割 - 笔记](主机规划与磁盘分割.md)
-- [使用入门 - 笔记](Linux使用入门.md)
+- [主机规划与硬盘分割 - 笔记](basic/partition.md)
+- [使用入门 - 笔记](basic/basic_op.md)
+- [(实践)使用VirtualBox安装WindowsXP+CentOS双系统]()

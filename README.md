@@ -12,7 +12,3 @@
 ## 语言语法
 
 - [Go](Language/goLearning.md)
-
-## 小型藏品
-
-- [GoLang](Miniature/goLearning.md)

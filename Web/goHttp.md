@@ -48,9 +48,45 @@ type ServeMux struct {
 
 ```
 
-我们看到```ServeMux```类里有一个 ```map[string]muxEntry```对象也大概可以理解了，这就是把不同的url作为key映射到不同的处理函数上，如果没有意外的话，我们入口代码```goHttp.go```里面的```http.HandleFunc()```最终就会向```DefaultServeMux```的这个```map```对象写入数据。我们对源码进行追踪，最终可以在```func (mux *ServeMux) Handle```函数里找到这个插入处理。
+我们看到```ServeMux```类里有一个 ```map[string]muxEntry```对象也大概可以理解了，这就是把不同的url作为key映射到不同的处理函数上，如果不出意外的话，我们入口代码```goHttp.go```里面的```http.HandleFunc()```最终就会向```DefaultServeMux```的这个```map```对象写入数据。
 
+结果也的确如此：我们对源码进行追踪，最终可以在```func (mux *ServeMux) Handle```函数里找到这个插入处理。Socket
 
-另一方面，我们还可以带着一个思考：在什么时候会把```DeafultServeMux```绑定？
+```Go
+/* net/http/server.go: 2383 */
+mux.m[pattern] = muxEntry{h: handler, pattern: pattern}
+```
+PS:这个函数里还有加锁解锁的操作，保证函数的原子性（why?）：
+
+```Go
+mux.mu.Lock()
+defer mux.mu.Unlock()
+```
+
+另一方面，我们还要带着一个思考：在什么时候会把```DeafultServeMux```绑定给我们具体的http服务？这就需要我们接下去研究 ```net/http```包具体是怎么实现连接的建立和http请求的监听了。
 
 ## Web服务的主题 - 连接与请求监听
+
+我们继续分析```goHttp.go```，到现在为止也就分析了一行代码(orz)
+
+```Go
+/* goHttp.go: 25 */
+err := http.ListenAndServe(":9090", nil) //设置监听的端口
+if err != nil {
+    log.Fatal("ListenAndServe: ", err)
+}
+```
+
+小的试验：将端口绑定到已有服务。port 13 是约定俗成的时间服务器，如果我这里将9090改成13，就会报错：
+
+```shell
+ListenAndServe: listen tcp :13: bind: permission denied
+```
+
+[教程分析](https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/03.3.md)
+
+<hr>
+
+Any suggestions? 欢迎各类批评建议～
+
+**zys980808@126.com**

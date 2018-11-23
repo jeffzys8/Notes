@@ -77,13 +77,56 @@ if err != nil {
 }
 ```
 
-小的试验：将端口绑定到已有服务。port 13 是约定俗成的时间服务器，如果我这里将9090改成13，就会报错：
+> 小的试验：将端口绑定到已有服务。port 13 是约定俗成的时间服务器，如果我这里将9090改成13，就会报错：
 
 ```shell
 ListenAndServe: listen tcp :13: bind: permission denied
 ```
 
+```ListenAndServe```实际做了三件事情：
+
+1. 创建Listen Socket, 监听指定的端口, 等待客户端请求到来。
+
+	```Go
+	/* net/http/server.go: 2760 */
+	ln, err := net.Listen("tcp", addr)
+	```
+	```net.Listen```底层用TCP协议(Socket编程)搭建了一个服务，然后监控我们设置的端口。那这个底层的实现具体是怎么样的？这个放到后面再讲。而这个函数创建的一套服务接口，就由一个Listener(上面的```ln```)来暴露了。而后调用一个```Serve```函数来处理这个Listener，也即处理到达这个底层监控服务的客户请求
+
+	```Go
+	/* net/http/server.go: 2764 */
+	return srv.Serve(tcpKeepAliveListener{ln.(*net.TCPListener)})
+	```
+	(这个语法比较迷...一时没有看懂)
+
+2. Listen Socket接受客户端的请求, 得到Client Socket, 接下来通过Client Socket与客户端通信。
+
+	```Go
+	/* net/http/server.go: 2826 */
+	rw, e := l.Accept()
+	```
+
+	我们可以看到```Serve```函数内循环地进行```Accept```操作，这个操作实际上是阻塞式地等待底层监听服务监听到一个客户请求，然后分配一个连接(```rw```)；值得注意的是，这里的连接是底层服务层面的，有别于下面又新建的一个连接，相当于这个底层连接的一个HTTP包裹。
+
+	```Go
+	/* net/http/server.go: 2849 */
+	c := srv.newConn(rw)
+	```
+
+	最后单独开了一个go routine，把这个请求的数据当做参数扔给这个HTTP conn(对底层conn的封装)去服务。这个就是高并发体现了，用户的每一次请求都是在一个新的协程去服务，相互不影响
+
+	```Go
+	/* net/http/server.go: 2851 */
+	go c.serve(ctx)
+	```
+
+3. 处理客户端的请求, 首先从Client Socket读取HTTP请求的协议头, 如果是POST方法, 还可能要读取客户端提交的数据, 然后交给相应的handler处理请求, handler处理完毕准备好客户端需要的数据, 通过Client Socket写给客户端。
+
+> To be continued.
+
 [教程分析](https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/03.3.md)
+
+- [ ] ```net.Listen```的具体实现
 
 <hr>
 

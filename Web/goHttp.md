@@ -122,7 +122,7 @@ ListenAndServe: listen tcp :13: bind: permission denied
 
 3. 处理客户端的请求, 首先从Client Socket读取HTTP请求的协议头, 如果是POST方法, 还可能要读取客户端提交的数据, 然后交给相应的handler处理请求, handler处理完毕准备好客户端需要的数据, 通过Client Socket写给客户端。
 
-> To be continued.
+	> To be continued.
 
 [教程分析](https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/03.3.md)
 

@@ -1,4 +1,4 @@
-# 文件权限
+# Linux 文件系统
 
 User, Group, Others (还有root)
 
@@ -31,6 +31,12 @@ User, Group, Others (还有root)
 
 > 和Windows使用`.exe`来表示文件可执行不同, Linux是通过文件权限`x`来决定的
 
+## 文件权限的更改
+- `chgrp`
+- `chown`
+- `chomod`: r(4) + w(2) +x(1)
+
+
 ## 目录文件的权限
 
 - r 表示可以`ls`这个目录
@@ -48,3 +54,38 @@ User, Group, Others (还有root)
 这个用户的确无法读、编辑、执行这个文件，**但它却可以删除和移动它**；这个过程就像有人把一个密封的文件放到你的保险柜里，虽然你拆不开这个文件，但你却可以销毁它！
 
 > 这里打个岔：新建用户需要先`useradd`, 然后`passwd`，单纯使用前者无法登陆，原因暂时没有去查
+
+## Linux目录配置的依据--FHS
+
+Filesystem Hierarchy Standard (FHS)标准
+
+> 这里先把文件夹名字记录下来，以后在实践中逐渐积累经验，如果需要查阅信息可以
+
+总分类：
+- `/` (root) 与开机系统有关；
+- `/usr` (unix software resource) 与软件安装/执行有关；
+- `/var` (variable) 与系统运作过程有关
+
+### /
+
+FHS建议根目录越小越好
+
+must: `/boot`, `/bin`, `/dev`, `/etc`, `/lib`, `/media`, `/mnt`, `/opt`, `/run`, `/sbin`, `/srv`, `/tmp`, **`/usr`, `/var`**
+
+recommended: `/home`, `/lib<?>`, `/root`
+
+not in FHS: `/lost+found`, `/proc`, `/sys`
+
+### /usr
+
+放置的资料属于**可分享的**与**不可变动的**(shareable, static)，软件安装相关
+
+must: `./bin`, `./lib`, `./local`, `./sbin`, `./share`, 
+
+recommended: `./games`, `./include`, `./libexec`, `./lib<?>`,  `./src`
+
+### /var
+
+经常变动的文件目录
+
+must: `./cache`, `./lib`, `./lock`, `./log`, `./mail`, `./run`, `./spool`

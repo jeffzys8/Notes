@@ -12,3 +12,4 @@
 ## 语言语法
 
 - [Go](Language/goLearning.md)
+- [JavaScript](Language/js.md)

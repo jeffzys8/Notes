@@ -13,3 +13,4 @@
 
 - [Go](Language/goLearning.md)
 - [JavaScript](Language/js.md)
+- [C++基础](Language/C++/basic.md)

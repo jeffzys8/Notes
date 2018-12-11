@@ -32,12 +32,12 @@ CentOS-7 minimal, 官网下载即可
 
 当然WindowsXP也能进行分区，只不过界面和功能来说还是CentOS更胜一筹；详细的步骤跟着 [鸟哥的教程](http://linux.vbird.org/linux_basic/0157installcentos7.php#multiboot_design)就行了。当然博主的分区规划和鸟哥的略有不同，如下所示：
 
-- 1M ~ 15G : 主要分区1，用于安装CentOS (```sda1```)
-- 15G ~ 30G : 主要分区2，用于安装WindowsXP (```sda2```)
-- 30G ~ 40G : 扩展分区 (```sda3```)
-    - 30G ~ 38G ：逻辑分区1，用于windows和cent共享数据 (```sda5```) 
+- 1M ~ 15G : 主要分区1，用于安装CentOS (``sda1``)
+- 15G ~ 30G : 主要分区2，用于安装WindowsXP (``sda2``)
+- 30G ~ 40G : 扩展分区 (``sda3``)
+    - 30G ~ 38G ：逻辑分区1，用于windows和cent共享数据 (``sda5``) 
         > 注意到这里从5开始，因为如前所述1~4分给了primary和extended
-    - 38G ~ 40G : 逻辑分区2，用于换页，增强内存功能 (```sda6```)
+    - 38G ~ 40G : 逻辑分区2，用于换页，增强内存功能 (``sda6``)
 
 ## 安装WindowsXP
 
@@ -53,7 +53,7 @@ CentOS-7 minimal, 官网下载即可
 
 ## Grub2设置
 
-鸟哥的教程里有一部分对Grub2的设置，乍一看还是蛮困扰的，幸亏看了这一片[教程](http://www.jinbuguo.com/linux/grub.cfg.html)，我知道了```set root='(hd0,3)'```指的是第一块硬盘内的第三个主要分区；而博主的分区规划是把Windows安装在第二个主要分区，因此改成```set root='(hd0,2)```即可，**注意这里格式严格不能有多余空格哦！**
+鸟哥的教程里有一部分对Grub2的设置，乍一看还是蛮困扰的，幸亏看了这一片[教程](http://www.jinbuguo.com/linux/grub.cfg.html)，我知道了``set root='(hd0,3)'``指的是第一块硬盘内的第三个主要分区；而博主的分区规划是把Windows安装在第二个主要分区，因此改成``set root='(hd0,2)``即可，**注意这里格式严格不能有多余空格哦！**
 
 ## 成功！
 
@@ -67,4 +67,4 @@ CentOS-7 minimal, 官网下载即可
 
 <hr>
 
-如有任何问题，可发邮件至 ```zys980808@126.com``` 告知我，感激不尽！
+如有任何问题，可发邮件至 ``zys980808@126.com`` 告知我，感激不尽！

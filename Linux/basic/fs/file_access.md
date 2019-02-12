@@ -1,4 +1,6 @@
-# Linux 文件系统
+> 未完成，文件权限需要过一遍；其次是需要将目录配置标准的内容单独开一个md记录
+
+# 文件权限
 
 User, Group, Others (还有root)
 
@@ -6,7 +8,7 @@ User, Group, Others (还有root)
 
 ## 使用指令```ls -al```:
 
-![](filer_ls.png)
+![](filer_ls.PNG)
 
 
 1. 文件类型权限：
@@ -55,7 +57,7 @@ User, Group, Others (还有root)
 
 > 这里打个岔：新建用户需要先`useradd`, 然后`passwd`，单纯使用前者无法登陆，原因暂时没有去查
 
-## Linux目录配置的依据--FHS
+# Linux目录配置的依据--FHS
 
 Filesystem Hierarchy Standard (FHS)标准
 

@@ -1,3 +1,4 @@
+> 需要分离一波
 - [参考资料](#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
 - [JavaScript概述](#javascript%E6%A6%82%E8%BF%B0)
 - [基本语法](#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95)
@@ -22,6 +23,7 @@
 - JavaScript 高级程序设计 (3rd edition)
     - [源码](http://www.wrox.com/WileyCDA/WroxTitle/Professional-JavaScript-for-Web-Developers-3rd-Edition.productCd-1118026691,descCd-DOWNLOAD.html)
 - [JavaScript 教程 - 阮一峰](https://wangdoc.com/javascript/)
+- [ES6 - 阮一峰](http://es6.ruanyifeng.com/)
 
 # JavaScript概述
 

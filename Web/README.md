@@ -1,10 +1,5 @@
 # Web全栈学习
 
-# 基础内容
-
-- [javascript](javascript/README.md)
-- nodejs
-
 # 原理
 
 - [Go Http服务原理分析](goHttp.md)

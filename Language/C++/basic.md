@@ -18,9 +18,19 @@
 
 # string
 
-字符处理见于 p77，这是C标准库的`cctype` (在C语言中为`ctype.h`)
+- 字符处理见于 p77，这是C标准库的`cctype` (在C语言中为`ctype.h`)
+- string也是具有`iterator`的
 
-string也是具有`iterator`的
+说到`string`要提一下`char`表示的; 下面的代码是错误的:
+```c
+char str[80];
+str="abcdefg";
+```
+原因在于初始化以后，数组名会退化为指针常量，既是类型错误(将字符串常量赋值给指针)，也是const错误（指针常量不能修改）；（此处存疑）。因此正确的做法是：
+```c
+char str[80];
+strcpy(str, "abcdefg");
+```
 
 # vector
 

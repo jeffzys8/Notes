@@ -4,7 +4,7 @@
 
 ## 主题
 
-- [最小生成树](minimaltree.md)
+- [最小生成树](minimaltree/minimaltree.md)
 
 ## 例子
 

@@ -21,7 +21,7 @@
 
 **文件系统**
 
-- [文件权限管理](basic/fs/access.md)
+- [文件权限](basic/fs/access.md)
 
 ## Unix网络编程
 

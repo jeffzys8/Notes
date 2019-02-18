@@ -16,6 +16,15 @@
 #endif
 ```
 
+# 变量的种类
+
+[博客](https://www.cnblogs.com/moonlightpoet/p/5647866.html)
+
+- 自动变量: auto, 局部变量，作用域为其所在代码块，**存储栈中**
+- 静态变量: static, 整个存储周期都存在的
+- 动态存储: 通过new, delete创建删除, 存储在堆中
+  - 对于java来说，没有自动变量这一说，变量都存在堆中，由垃圾处理器对无用变量进行销毁
+
 # string
 
 - 字符处理见于 p77，这是C标准库的`cctype` (在C语言中为`ctype.h`)

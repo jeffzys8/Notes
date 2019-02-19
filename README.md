@@ -12,8 +12,9 @@
 
 ## 语言语法
 
-- [Go](Language/Go/goLearning.md)
-- [Go语言高级编程](https://chai2010.gitbooks.io/advanced-go-programming-book/content/)
+- Go
+  - [Go基础语法](Language/Go/goLearning.md)
+  - [Go语言高级编程](https://chai2010.gitbooks.io/advanced-go-programming-book/content/)
 - [Go by Example](https://books.studygolang.com/gobyexample/)
-- [JavaScript](Language/JavaScript/js.md)
+- [JavaScript](Language/JavaScript/README.md)
 - [C++基础](Language/C++/basic.md)

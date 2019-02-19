@@ -1,5 +1,4 @@
 > 需要分离一波
-- [参考资料](#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
 - [JavaScript概述](#javascript%E6%A6%82%E8%BF%B0)
 - [基本语法](#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95)
   - [变量](#%E5%8F%98%E9%87%8F)
@@ -18,12 +17,7 @@
 - [面对对象](#%E9%9D%A2%E5%AF%B9%E5%AF%B9%E8%B1%A1)
   - [构造函数](#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0)
 
-# 参考资料
 
-- JavaScript 高级程序设计 (3rd edition)
-    - [源码](http://www.wrox.com/WileyCDA/WroxTitle/Professional-JavaScript-for-Web-Developers-3rd-Edition.productCd-1118026691,descCd-DOWNLOAD.html)
-- [JavaScript 教程 - 阮一峰](https://wangdoc.com/javascript/)
-- [ES6 - 阮一峰](http://es6.ruanyifeng.com/)
 
 # JavaScript概述
 
@@ -94,9 +88,8 @@ Javascript 包括三个部分
 
 ## 函数
 
-[对象类型按共享传递](https://segmentfault.com/a/1190000005794070)
-
-[按值还是按引用传递?](https://zhuanlan.zhihu.com/p/24080761)
+- [对象类型按共享传递](https://segmentfault.com/a/1190000005794070)
+- [Javascript都是按值传递](https://zhuanlan.zhihu.com/p/24080761)
 
 # 数据类型
 
@@ -109,6 +102,8 @@ Javascript 包括三个部分
     - array
     - function
 - **两个特殊值**: undefined, null （含义很类似）
+    - null是一个表示 "空" 的**对象**，转为数值时为0
+    - undefined是一个表示 "此处无定义" 的**原始值**，转为数值时为NaN。
 
 ## 确定值的类型
 

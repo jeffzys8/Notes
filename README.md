@@ -13,7 +13,6 @@
 
 ## 语言语法
 
-- Go
-
+- [Go](Go/README.md)
 - [JavaScript](Language/JavaScript/README.md)
 - [C++基础](Language/C++/basic.md)

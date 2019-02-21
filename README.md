@@ -9,6 +9,7 @@
 - [Linux](Linux/README.md)
 - [Android](Android/README.md)
 - [数据库](Database/README.md)
+- [分布式系统](DistrSys/README.md)
 
 ## 语言语法
 

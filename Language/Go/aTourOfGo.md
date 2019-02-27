@@ -686,15 +686,13 @@ func main() {
 
 练习：斐波那契数列
 ```Go
+// fibonacci is a function that returns
+// a function that returns an int.
 func fibonacci() func() int {
-	former := 0
-	latter := 1
-	return func() int {
-		temp := former
-		temp2 := latter
-		latter += former
-		former = temp2
-		return temp
+	a, b := 0, 1;
+	return func() int{
+		a, b = b, a+b;
+		return a;
 	}
 }
 

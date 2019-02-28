@@ -806,8 +806,8 @@ func main() {
 	a = &v // a *Vertex 实现了 Abser
 
 	// 下面一行，v 是一个 Vertex（而不是 *Vertex）
-	// 所以没有实现 Abser。
-	//a = v
+	// v没有实现 Abser 会报错
+	// a = v
 
 	fmt.Println(a.Abs())
 }
@@ -947,9 +947,7 @@ type IPAddr [4]byte
 
 // TODO: Add a "String() string" method to IPAddr
 func (i IPAddr) String() string{
-	var result string
-	result = fmt.Sprintf("%v.%v.%v.%v",i[0],i[1],i[2],i[3])
-	return result
+	return fmt.Sprintf("%v.%v.%v.%v",i[0],i[1],i[2],i[3])
 }
 
 func main() {
@@ -962,3 +960,18 @@ func main() {
 	}
 }
 ```
+Go用`error`类型来标识错误, 该接口具有`Error() string`方法; 函数返回都应检测`error`是否为`nil`
+```go
+i, err := strconv.Atoi("42")
+if err != nil {
+    fmt.Printf("couldn't convert number: %v\n", err)
+    return
+}
+fmt.Println("Converted integer:", i)
+```
+
+`io.Reader`是读端的统一接口(基于一切是文件的设计理念), 这一接口在文件、网络传输; 该接口需实现方法
+```go
+func (T) Read(b []byte) (n int, err error)
+```
+`n`为读入数,  文件读取结束时`err`为`io.EOF`

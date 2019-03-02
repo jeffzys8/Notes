@@ -13,6 +13,9 @@
 - [方法和接口](#%E6%96%B9%E6%B3%95%E5%92%8C%E6%8E%A5%E5%8F%A3)
 	- [方法](#%E6%96%B9%E6%B3%95)
 	- [接口](#%E6%8E%A5%E5%8F%A3)
+- [并发](#%E5%B9%B6%E5%8F%91)
+	- [协程](#%E5%8D%8F%E7%A8%8B)
+	- [管道](#%E7%AE%A1%E9%81%93)
 
 # HelloWorld
 
@@ -975,3 +978,9 @@ fmt.Println("Converted integer:", i)
 func (T) Read(b []byte) (n int, err error)
 ```
 `n`为读入数,  文件读取结束时`err`为`io.EOF`
+
+# 并发
+
+## 协程
+
+## 管道

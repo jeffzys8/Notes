@@ -43,8 +43,33 @@ val ssc = new StreamingContext(sc, Seconds(1))
 
 注意在这以后, 就不能再添加新的操作了; 可以使用 `ssc.stop()` 停止接受数据, 如果想要复用`sc`, 记得要设置一下`stop()`的参数 (为什么要复用? 可以重复创建多个StreamingContexts); 一个JVM只能有一个StreamingContext
 
-## DStreams
+## Receivers
 
-//TODO
+本地运行使用 "local[1]" 作为主url将导致只有一个线程; 如果是从kafka读的话, 就只有一个接收器, 而没有处理器了; 因此 "local[n]" 需满足 n>要运行的接收器数量. 同理, 扩展到Spark-Streaming集群, 同样也需要给 app 分配的核心数大于接收器数(receiver一般不止一个?)
 
-将逻辑扩展到在集群上运行时，分配给Spark Streaming应用程序的核心数必须大于接收器数。否则系统将接收数据，但无法处理数据。
+## 文件输入源
+
+HDFS API:
+```scala
+streamingContext.fileStream[KeyClass, ValueClass, InputFormatClass](dataDirectory)
+```
+
+Simple Files:
+```scala
+streamingContext.textFileStream(dataDirectory)
+```
+
+目录监控: //TODO 目录监控有很多注意项暂时略过了
+
+- 所有文件需格式一致
+
+## DStream
+
+RDD --> DStream: 可以基于RDD队列创建DStream, 用于**测试**
+```scala
+streamingContext.queueStream(queueOfRDDs)
+```
+
+## DStream转换
+
+**UpdateByKey** //TODO UpdateByKey没看懂, 回头看

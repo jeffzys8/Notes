@@ -92,6 +92,36 @@ for 推导式, 返回一个生成器中集合类型的值; 用于通过for循环
 val r=for(i <- 1 to 5 if i%=2) yield {println(i); i}
 ```
 
+# 函数与方法
+
+Scala 有方法与函数，二者在语义上的区别很小.<br>
+Scala 方法是类的一部分，而函数是一个对象可以赋值给一个变量。换句话来说在类中定义的函数即是方法. <br>
+Scala 中使用 val 语句可以定义函数，def 语句定义方法。
+
+```scala
+class Test{
+  def m(x: Int) = x + 3
+  val f = (x: Int) => x + 3
+}
+```
+
+方法基本组成:
+```scala
+def functionName ([参数列表]) : [return type] = {
+   function body
+   return [expr]
+}
+```
+
+如果方法没有返回值，可以返回为 Unit，这个类似于 Java 的 void, 实例如下：
+```scala
+object Hello{
+   def printMe( ) : Unit = {
+      println("Hello, Scala!")
+   }
+}
+```
+
 # 未归类
 
 ## 内联函数

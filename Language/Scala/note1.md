@@ -135,3 +135,4 @@ val pythonLines = lines.filter(line => line.contains("Python"))
 
 - 单例对象
 - 不支持java中的 "checked exception" (这是什么), 所有异常都当做运行时异常
+- 为什么不怎么用return

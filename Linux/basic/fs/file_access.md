@@ -103,3 +103,21 @@ recommended: `./games`, `./include`, `./libexec`, `./lib<?>`,  `./src`
 经常变动的文件目录
 
 must: `./cache`, `./lib`, `./lock`, `./log`, `./mail`, `./run`, `./spool`
+
+# $PATH
+
+不要将 `.` 放入 $PATH 中, 防止恶意用户在公共文档 (例如`/tmp`) 写恶意sh;
+
+每个用户具有自己的 $PATH, 暂时更改:
+```sh
+$ PATH="$PATH:/usr/local/bin"
+```
+永久更改自己的PATH: 在 `~/.bashrc` 文件下
+```sh
+export PATH="$PATH:/usr/local/bin"
+```
+然后执行:
+```sh
+$ source ~/.bashrc
+```
+更改系统级环境变量则修改 `/etc/profile`, 执行上述两个步骤

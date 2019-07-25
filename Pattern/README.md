@@ -9,3 +9,7 @@
 Java Stringbuilder 似乎就运用了这个模式
 
 [java实现和讲解](http://www.runoob.com/design-pattern/builder-pattern.html)
+
+## 单例模式
+
+[c++线程安全](singleton.md)

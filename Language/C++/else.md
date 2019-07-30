@@ -21,3 +21,39 @@ int main()
 - 等价于 `A a(A func_name());`
 
 > 据说可以用 C++11 的 列初始化 排除这种干扰；了解一下？
+
+# 编译器优化类对象初始化过程
+
+```cpp
+class A
+{
+public:
+    A()
+    {
+        cout << "default" << endl;
+    }
+    explicit A(const A &a)
+    {
+        cout << "copy" << endl;
+    }
+    A(const int &a) : a(a)
+    {
+        cout << "hello" << endl;
+    }
+    int a;
+};
+
+A func(){
+    return A();
+}
+
+int main()
+{
+    A test = func();    
+    // 逻辑上来说，会调用两次复制构造函数
+    //      - func() 的 return 一次
+    //      - test 初始化一次；
+    // 因此设置为explicit编译器报两次错
+    // 但去掉explicit, 运行的时候其实只调用了一次 default, 这是编译器优化了
+}
+```

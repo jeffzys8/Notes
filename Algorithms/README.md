@@ -6,3 +6,4 @@
 - [递归](recursive/README.md)
 - [图论](graph/README.md)
 - [动态规划](dp/README.md)
+- [排序](sort/README.md)

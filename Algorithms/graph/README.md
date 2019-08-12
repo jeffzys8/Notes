@@ -19,3 +19,4 @@
 
 - [有向图边的类型及应用](edgetype/edgetype.md)
 - [强连通分量](ssc/scc.md)
+- [并查集](unionfindset/unionfindset.md)

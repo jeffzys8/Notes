@@ -20,13 +20,15 @@
   
 ### 基础使用
 
-- [Linux基础操作](basic/basic_op.md) TODO: 这里的内容打散拆开啦，这里弄一个所谓Linux基础操作很突兀。
-- 指令列表和简介 TODO
+- [Linux基础操作和指令](basic/basic_op_commands.md)
+- 指令列表 TODO
 
 ### 安装Linux
 
 - [组装Linux机器的硬件选择 - 鸟哥](http://linux.vbird.org/linux_basic/0130designlinux.php#hardware_select) TODO: 导入链接可不能算是学会了
 - [(实践)使用VirtualBox安装WindowsXP+CentOS双系统](basic/install/virtual_double_sys.md)
+
+### BASH
 
 ### 文件系统
 
@@ -35,6 +37,10 @@
 ### 存储管理
 
 - [主机规划与硬盘分割](basic/storage/partition.md) TODO: 这个还需要重新的整理和吸收
+
+### 未分类
+
+- [动态链接库](basic/dynamic_link_lib.md)
 
 <hr>
 

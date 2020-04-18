@@ -2,6 +2,8 @@
 
 从现在开始要好好整理Linux的笔记啦，像上课一样每天固定地学一些记下来慢慢会有很大的进步的。
 
+[学习路线](roadmap.md) TODO
+
 <hr>
 
 ## Linux基础知识
@@ -13,20 +15,19 @@
 - 马哥运维视频(Bilibili)
 
 ### “文科”知识
-- [Linux历史](basic/literal/history.md) TODO
-- [开源协议](basic/literal/opensource.md)
-- [学习路线](basic/literal/roadmap.md) TODO
+- [Linux历史](basic/history.md) TODO
+- [开源协议](basic/opensource.md)
 - 红帽认证 TODO
   
 ### 基础使用
 
-- [Linux基础操作和指令](basic/basic_op_commands.md)
+- [快速入门](basic/quick_start.md)
 - 指令列表 TODO
 
 ### 安装Linux
 
 - [组装Linux机器的硬件选择 - 鸟哥](http://linux.vbird.org/linux_basic/0130designlinux.php#hardware_select) TODO: 导入链接可不能算是学会了
-- [(实践)使用VirtualBox安装WindowsXP+CentOS双系统](basic/install/virtual_double_sys.md)
+- [(实践)使用VirtualBox安装WindowsXP+CentOS双系统](basic/virtual_double_sys.md)
 
 ### BASH
 
@@ -51,3 +52,15 @@
 <hr>
 
 ## Unix环境高级编程(APUE)
+
+<hr>
+
+## Linux From Scratch
+
+- [README](lfs/README.md)
+
+<hr>
+
+## MIT 6.828
+
+- [README](mit6828/README.md)

@@ -59,11 +59,11 @@ CentOS-7 minimal, 官网下载即可
 
 然后重启，就会发现 Grub2 多了一个WindowsXP，截图留念：
 
-![](dsys_grub2.jpg)
+![](img/dsys_grub2.jpg)
 
 当然Windows也启动成功了：
 
-![](dsys_xp.jpg)
+![](img/dsys_xp.jpg)
 
 <hr>
 

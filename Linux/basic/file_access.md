@@ -69,41 +69,6 @@
 
 > 这里打个岔：新建用户需要先`useradd`, 然后`passwd`，单纯使用前者无法登陆，原因暂时没有去查
 
-# Linux目录配置的依据--FHS
-
-Filesystem Hierarchy Standard (FHS)标准
-
-> 这里先把文件夹名字记录下来，以后在实践中逐渐积累经验，如果需要查阅信息可以
-
-总分类：
-- `/` (root) 与开机系统有关；
-- `/usr` (unix software resource) 与软件安装/执行有关；
-- `/var` (variable) 与系统运作过程有关
-
-### /
-
-FHS建议根目录越小越好
-
-must: `/boot`, `/bin`, `/dev`, `/etc`, `/lib`, `/media`, `/mnt`, `/opt`, `/run`, `/sbin`, `/srv`, `/tmp`, **`/usr`, `/var`**
-
-recommended: `/home`, `/lib<?>`, `/root`
-
-not in FHS: `/lost+found`, `/proc`, `/sys`
-
-### /usr
-
-放置的资料属于**可分享的**与**不可变动的**(shareable, static)，软件安装相关
-
-must: `./bin`, `./lib`, `./local`, `./sbin`, `./share`, 
-
-recommended: `./games`, `./include`, `./libexec`, `./lib<?>`,  `./src`
-
-### /var
-
-经常变动的文件目录
-
-must: `./cache`, `./lib`, `./lock`, `./log`, `./mail`, `./run`, `./spool`
-
 # $PATH
 
 不要将 `.` 放入 $PATH 中, 防止恶意用户在公共文档 (例如`/tmp`) 写恶意sh;

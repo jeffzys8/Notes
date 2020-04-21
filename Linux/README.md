@@ -31,13 +31,13 @@
 
 ### BASH
 
-### 文件系统
+### 存储系统
 
-- [文件权限](basic/fs/access.md) TODO: 整理
+- [主机规划与硬盘分割](basic/disk_partition.md) TODO: 这个还需要重新的整理和吸收
+- [文件系统详解](basic/file_system.md) TODO
+- [文件权限](basic/file_access.md) TODO: 整理
 
-### 存储管理
-
-- [主机规划与硬盘分割](basic/storage/partition.md) TODO: 这个还需要重新的整理和吸收
+### 硬件
 
 ### 未分类
 

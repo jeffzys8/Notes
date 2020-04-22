@@ -33,11 +33,13 @@
 
 ### 存储系统
 
-- [硬盘分区、开机流程初探](basic/disk_partition.md)
+- [分区初探](basic/disk_partition.md)
 - [文件系统详解](basic/file_system.md) TODO
 - [文件权限](basic/file_access.md) TODO: 整理
 
 ### 硬件
+
+- [主机的服务规划与硬体的关系 - 鸟哥](https://linux.vbird.org/linux_basic/centos7/0130designlinux.php#beforeinstall_service)
 
 ### 未分类
 

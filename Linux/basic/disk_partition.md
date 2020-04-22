@@ -1,4 +1,4 @@
-# 硬盘分区与开机流程
+# 硬盘分区、开机流程初探
 
 
 ## 参考资料
@@ -92,85 +92,81 @@ GPT即 GUID partition table，是新一代的分区方式。以下是简要的GP
 
 ## 分区指令
 
-TODO
-
 `fdisk` 不适用于GPT
 `gdisk`, `parted`
 
+> 后面会再更细致地进行分区学习，指令再补充
 
+## 开机流程
 
-## 开机自检程序
+这里要讨论的就是开机流程，包括BIOS、UEFI以及Boot Loader。首先简单介绍一下前部分的开机流程。
 
-开机流程
+1. 开机主动执行BIOS、UEFI进行上电自检，同时从硬盘中读取boot loader
+2. 执行Boot Loader，载入内核，启动操作系统
+3. ...
+
+> 开机流程可以专门开一个记录做深入补充，这部分可以在做了MIT6.828的相关实验以后再搞。
 
 ### BIOS
 
-BIOS 也可以通过 GPT相容MBR的boot loader来开机，但其实它认不得GPT，要交给boot loader去认；UEFI就能认，所以能在开机前就管理GPT硬盘。如果相容的MBR boot loader都认不得GPT，例如Windows XP 的环境，那自然就无法读取数据并开机了。
+- BIOS是写入到主板的固件(firmware)，是计算机开机时执行的第一个程序。
+- BIOS可识别MBR格式的硬盘
+- 对于GPT硬盘，BIOS也可通过`LBA0`(MBR相容区块)的boot loader来开机。但其实它无法识别GPT，要交给boot loader去认。如果boot loader也无法识别GPT就无法开机(例如Windows XP)
+- *(此段感觉怪怪的)* 由于LBA0 仅提供第一阶段的启动引导程序，因此如果使用如 grub 的启动引导程序的话，就要额外分配一个`BIOS boot`的分区，用于放置后阶段的启动引导程序。在CentOS 当中，这个分区通常占用2MB 左右而已。
+
+### 启动引导程序
+
+BIOS是“刻”在主板上的，MBR是硬盘本身就支持的功能，而Boot Loader则是在装系统时系统写上去的一个**软件**。由于MBR只分配了`446B`给Boot Loader，因此这个软件肯定是**简洁而美**的。它提供以下功能：
+- 选择系统的菜单（多系统的前提）
+- 载入系统内核
+- 将控制权转给其他的Boot Loader
+  - 不仅有MBR可以装Boot Loader，每个硬盘分区其实都有一个boot sector来支持多系统。
+
+
+**“如果要安装多重开机，最好先安装Windows再安装Linux” 的原因：**
+- Linux安装时，其Boot Loader
+  - 可以选择安装在MBR，也可以是分区的boot sector
+  - 可以设置开机菜单，转移boot loader的控制权
+- Windows安装时，其Boot Loader
+  - 直接粗暴覆盖MBR
+  - 不提供开机菜单
+
+当然上述情况也不是绝对，可以采取救援MBR的方式达成先装Linux再装Windows，这博主是折腾过了，可以看看这篇[在VBox安装双系统](virtual_double_sys.md)的博客。
+
+**Example 一个实践的栗子：**
+
+在还不懂开机流程的某一天，我将Ubuntu装到了一整个U盘上，然后发现开机进入Grub2（当时还不认识Grub2这个boot loader），而且也无法启动Ubuntu，更无法进入Windows，然后惊慌的我赶紧将U盘内容格式化，又能直接进入Windows了。
+
+当时重启后进入Grub2而不是直接进入Ubuntu说明**Ubuntu并没有安装成功**，因为虽然U盘的MBR的确安装上了Grub2作为Boot Loader，但是在检测到只有一个系统的时候，Grub2应该会直接引导开启操作系统。现在看来安装失败有可能是硬盘格式问题。
+
+然后格式化U盘以后又能重新启动Windows，是因为装Windows的硬盘从头到尾没有动过(包括其MBR), 因此虽然U盘启动的优先级高于Windows(自己的设置)，但由于系统没能在U盘的MBR找到boot loader，因此转而向装有Windows的硬盘寻求启动了。
+
+> 有时间可以再尝试一次
 
 ### UEFI
+
+UEFI (Unified Extensible Firmware Interface)，更高级的BIOS。
+
+- 区别于BIOS使用汇编开发，使用C语言开发，更像OS，可图形化
+- 可识别GPT硬盘
+- 轮训方式管理硬件资源，因此不够优
+- 增加安全启动机制，比BIOS更安全
+
+> 没看懂的内容：
+> - 与BIOS模式相比，虽然UEFI可以直接取得GPT的分割表，不过最好依旧拥有BIOS boot的分割槽支援（是怕grub把GPT当MBR来处理了吗）
+> - 为了与windows相容，并且提供其他第三方厂商所使用的UEFI应用程式储存的空间，你必须要格式化一个`vfat`的档案系统，大约提供512MB到1G左右的容量，以让其他UEFI执行较为方便。
+> - 由于UEFI 已经克服了BIOS 的1024 磁柱的问题，因此你的开机管理程式与核心放置在磁碟开始的前2TB 位置内即可(???)。
+> - 加上之前提到的`BIOS boot` 以及`vfat`，基本上你的`/boot` 目录几乎都是`/dev/sda3` 之后的号码了（`boot`又是干嘛的来着）
+> - 与以前熟悉的分割状况已经不同， /boot 不再是/dev/sda1 啰！很有趣吧！(有趣个头啊，以前哪里讲过了)
+
 
 ## 分区挂载规划（重要）
 
 像 C盘, D盘 等是典型的 Windows 分区方式，但就 Linux 的哲学 “一切都是文件” 而言，硬盘所分的分区也应该是以文件的形式存在。
 
-### 挂载原理
+### 目录树与挂载原理
+一切从`/`开始
 TODO：从fs.md引回来
 
 ### 规划
 TODO：关于不要分配`/boot`的，以及`/efi`的作用
-
-# 未整理内容
-
-
-**GPT 分区表**<br>
-
-
-在CentOS的安装过程中，可以发现硬盘格式为`BIOS boot`即为GPT分区表所需的备份空间（现在看来显然不是啦！改改！）
-
-## 开机流程中的 BIOS 与 UEFI 开机检测程式
-
-基本上，目前的主机系统在载入硬体驱动方面的程序，主要有**早期的 BIOS** 与**新的 UEFI** 两种机制
-
-**BIOS 搭配 MBR/GPT 的开机流程**
-1. BIOS：开机主动执行的韧体，会认识第一个可开机的装置；
-> 在主板上；寻找可以开机的设备
-2. MBR：第一个可开机装置的第一个扇区内的主要开机记录区块，内含**引导加载程序**；
-> 在存储设备(硬盘)上，第一个扇区
-3. 引导加载程序(boot loader)：一支可读取内核文件来执行的软体；
-> Grub就是其中一种，可用于引导多系统
-4. 操作系统内核kernel：开始操作系统的功能...
-
-由上面的说明我们会知道，BIOS与MBR都是硬体本身会支持的功能，至于**Boot loader则是操作系统安装在MBR上面的一套软件**了。由于MBR仅有446 bytes而已，因此这个开机管理程式是非常小而美的。这个boot loader的主要任务有底下这些项目：
-
-- 提供选单：使用者可以选择不同的开机项目，这也是**多重开机**的重要功能！
-- 载入核心档案：直接指向可开机的程式区段来**开始操作系统**；
-- 转交其他loader：将开机管理功能**转交给其他loader**负责。
-
-> 也是要常常回看的内容呀
-
-**每个分区都拥有自己的开机扇区**(boot sector), loader只会认识自己的系统槽内的可开机核心档案，以及其他loader而已;loader可直接指向或者是间接将管理权转交给另一个管理程式。
-
-『**如果要安装多重开机， 最好先安装Windows再安装Linux**』呢？这是因为：
-
-- **Linux**在安装的时候，你可以选择将boot loader安装在MBR或各别分区的boot sector， 而且Linux的loader可以手动设定选单(就是上图的M1, M2...) ，所以**你可以在Linux的boot loader里面加入Windows开机的选项**；
-
-- Windows在安装的时候，他的安装程式**会主动的覆盖掉MBR以及自己所在分区的启动扇区**，你没有选择的机会， 而且他没有让我们自己选择选单的功能。
-
-- 当然这种情况并不是无药可救! 可以选择**救援Linux系统**：以CentOS为例，重新插入CentOS的系统光盘(或者U盘)然后设置BIOS为光盘(U盘)启动，进入CentOS安装界面以后，不要选Install，选择Trouble Shooting, 具体可以看[这里](http://linux.vbird.org/linux_basic/0157installcentos7.php#multiboot_rescue)
-
-**Example 一个实践的栗子**<br>
-
-在还不懂开机流程的某一天，我将Ubuntu装到了一整个U盘上，然后发现开机进入Grub2（当时还不认识Grub2这个boot loader），而且也无法启动Ubuntu，然后惊慌的我赶紧将U盘内容格式化，又能直接进入Windows了。
-
-当时重启后进入Grub2而不是直接进入Ubuntu说明**Ubuntu并没有安装成功**，因为虽然U盘的MBR的确安装上了Grub2作为Boot Loader，但是在检测到只有一个系统的时候，Grub2会直接引导开启操作系统。
-
-然后格式化U盘以后又能重新启动Windows，是因为装Windows的硬盘从头到尾没有动过(包括其MBR), 因此虽然U盘启动的优先级高于Windows(自己的设置)，但由于系统没能在U盘的MBR(其实也有可能是GPT了)找到boot loader，因此转而向装有Windows的硬盘寻求启动了。
-
-**UEFI BIOS 搭配 GPT 开机的流程**
-
-- 与传统的 BIOS 不同，UEFI 简直就像是一个**低阶的操作系统**
-- 硬件资源的管理使用轮询 (polling) 的方式来管理，与 BIOS 直接了解 CPU 以中断的方式来管理比较， 这种 **polling 的效率是稍微慢一些**的
-
->下面这一点，我在Dell笔记本上重装系统就遇到过；
-- 此外，由于过去cracker 经常藉由BIOS 开机阶段来破坏系统，并取得系统的控制权，因此**UEFI 加入了一个所谓的安全启动(secure boot) 机制**， 这个机制代表着即将开机的操作系统必须要被UEFI 所验证，否则就无法顺利开机！微软用了很多这样的机制来管理硬体。不过**加入这个机制后，许多的操作系统，包括 Linux ，就很有可能无法顺利开机**喔！所以，某些时刻，你可能得要**将 UEFI 的 secure boot 功能关闭**， 才能够顺利的进入 Linux
-

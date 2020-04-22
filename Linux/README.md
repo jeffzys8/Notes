@@ -33,7 +33,7 @@
 
 ### 存储系统
 
-- [主机规划与硬盘分割](basic/disk_partition.md) TODO: 这个还需要重新的整理和吸收
+- [硬盘分区、开机流程初探](basic/disk_partition.md)
 - [文件系统详解](basic/file_system.md) TODO
 - [文件权限](basic/file_access.md) TODO: 整理
 

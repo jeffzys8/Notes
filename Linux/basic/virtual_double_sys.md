@@ -65,6 +65,7 @@ CentOS-7 minimal, 官网下载即可
 
 ![](img/dsys_xp.jpg)
 
-<hr>
+## 注意事项
 
-如有任何问题，可发邮件至 ``zys980808@126.com`` 告知我，感激不尽！
+1. Windows的环境中最好将Linux的根目录与swap取消挂载，否则打开Windows资源管理器的时候会要求你格式化掉几个Linux占用的分区。
+2. Linux不可以随便删除，因为grub会去读取Linux根目录下的`/boot`目录内容，如果将Linux移除了，整个开机菜单都消失，Windows从而也无法开机了。

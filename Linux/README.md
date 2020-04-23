@@ -31,11 +31,14 @@
 
 ### BASH
 
+TODO: 目录文件权限里的PATH移过来
+- [Bash特性](basic/bash_feature.md)
+
 ### 存储系统
 
 - [分区初探](basic/disk_partition.md)
-- [文件系统详解](basic/file_system.md) TODO
-- [文件权限](basic/file_access.md) TODO: 整理
+- [FHS](basic/fhs.md)
+- [目录文件权限](basic/fs_access.md)
 
 ### 硬件
 

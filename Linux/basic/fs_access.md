@@ -90,22 +90,22 @@
 
 > 这里打个岔：新建用户需要先`useradd`, 然后`passwd`，单纯使用前者无法登陆，原因暂时没有去查 (这段旧的笔记莫名其妙)
 
-# $PATH
+# 环境变量 $PATH
 
 > 放到Bash特性章节去
 
-不要将 `.` 放入 $PATH 中, 防止恶意用户在公共文档 (例如`/tmp`) 写恶意sh;
+- 不要将 `.` 放入 `$PATH` 中, 防止恶意用户在公共文档 (例如`/tmp`) 写恶意脚本。在某个目录下执行命令是需要加`./`前缀的，而如果`.`放入`$PATH`中，则不需要前缀，那么一些常用可执行文件可被篡改（比如`ls`）
 
-每个用户具有自己的 $PATH, 暂时更改:
-```sh
-$ PATH="$PATH:/usr/local/bin"
-```
-永久更改自己的PATH: 在 `~/.bashrc` 文件下
-```sh
-export PATH="$PATH:/usr/local/bin"
-```
-然后执行:
-```sh
-$ source ~/.bashrc
-```
-更改系统级环境变量则修改 `/etc/profile`, 执行上述两个步骤
+- 每个用户具有自己的 $PATH, 暂时更改:
+    ```sh
+    $ PATH="$PATH:/usr/local/bin"
+    ```
+- 永久更改自己的PATH: 在 `~/.bashrc` 文件下
+    ```sh
+    export PATH="$PATH:/usr/local/bin"
+    ```
+    然后执行:
+    ```sh
+    $ source ~/.bashrc
+    ```
+- 更改系统级环境变量则修改 `/etc/profile`, 执行上述两个步骤

@@ -33,12 +33,14 @@
 
 TODO: 目录文件权限里的PATH移过来
 - [Bash特性](basic/bash_feature.md)
+- 管道命令
 
-### 存储系统
+### 存储
 
 - [分区初探](basic/disk_partition.md)
 - [FHS](basic/fhs.md)
 - [目录文件权限](basic/fs_access.md)
+- [目录文件基本操作](basic/fs_basic_op.md)
 
 ### 硬件
 

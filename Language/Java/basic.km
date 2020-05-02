@@ -1,0 +1,81 @@
+{
+    "root": {
+        "data": {
+            "id": "178jmt0phcfmoco9npg6dlalee",
+            "text": "Java",
+            "created": 1588435368599
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "3oqd2a4q7cnkipfd6vs67afq46",
+                    "text": "泛型",
+                    "created": 1588435368599
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "08dph9gvsncd4dbkqtgbk9f3mu",
+                            "text": "参数化容器",
+                            "created": 1588435368599
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "74s8sj5mmn0g7qoe6c58s72l3d",
+                    "text": "继承",
+                    "created": 1588435368599
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "3ab8627hv74nautsajebpfcd33",
+                            "text": "覆盖",
+                            "created": 1588435368599
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "6sn4and7v9lou947gu2rbhpmu5",
+                            "text": "单根继承",
+                            "created": 1588435368599
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "4712jvs4nns48aujis8vm4690r",
+                            "text": "默认多态",
+                            "created": 1588435368599
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "4l294at9kccfee3sgcvlh3rq56",
+                                    "text": "无需virtual",
+                                    "created": 1588435368599
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "3qoi7bh2ebhd744usbcqmsu2vc",
+                                    "text": "后期绑定",
+                                    "created": 1588435368599
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "right",
+    "theme": "fresh-blue-compat",
+    "version": "1.4.43"
+}

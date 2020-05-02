@@ -1,5 +1,9 @@
 # 设计模式
 
+## 资料
+
+- [go-patterns.pdf](go-patterns.pdf)
+
 # 列表
 
 ## 建造者模式

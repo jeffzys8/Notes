@@ -22,7 +22,7 @@
 ### 基础使用
 
 - [快速入门](basic/quick_start.md)
-- 指令列表 TODO
+- [指令列表](basic/command_list.md) TODO
 
 ### 安装Linux
 

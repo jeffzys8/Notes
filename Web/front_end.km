@@ -1,0 +1,293 @@
+{
+    "root": {
+        "data": {
+            "id": "558mlc1mbl5uma2r3l5g59tksu",
+            "text": "前端",
+            "created": 1588433503575
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "37rrohtuav34fb06nhoa07ig9b",
+                    "text": "框架",
+                    "created": 1588433503575
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "0ae7pt80s905ag6u10nebi8f8m",
+                            "text": "vue",
+                            "created": 1588433503575
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "7a93tn5s8f300jaisaqm1fs8rl",
+                                    "text": "SPA",
+                                    "created": 1588433503575
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "2jbee1l761d2l37gsp08ia2mml",
+                    "text": "模板引擎",
+                    "created": 1588433503575
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "0ee6669cs69dpht37v7qke8dug",
+                            "text": "ejs",
+                            "created": 1588433503575
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "51knt4nohtgfsro0c2qjut79vu",
+                            "text": "vue也可以只发挥模板引擎的作用",
+                            "created": 1588433503575
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "2c2lnj5ppjrb4ekngp07ag5so6",
+                    "text": "前后端分离",
+                    "created": 1588433503575
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "50gng0at47fdpuafk6cp5uf64t",
+                            "text": "vue + 后台 不算?",
+                            "created": 1588433503575
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "24odscc8fmk619vi7u87ufg860",
+                                    "text": "只用go怎么分发",
+                                    "created": 1588433503576
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "106jiaa081cki0gtlrn5r9bb3e",
+                            "text": "暂时的理解",
+                            "created": 1588433503576
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "056ir3lh34ahhccbhlngbmlfsd",
+                                    "text": "nginx负载均衡",
+                                    "created": 1588433503576
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "12ppt97t5fnedpe4rd847b6g5n",
+                                    "text": "node服务器(koa2)与浏览器交互",
+                                    "created": 1588433503576
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "3clndcor6r7hauourb5dkq8s9k",
+                                            "text": "koa发页面给浏览器",
+                                            "created": 1588433503576
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "36m8bhvs1mmvk7arr1fkagerhe",
+                                            "text": "浏览器axios请求到koa2",
+                                            "created": 1588433503576
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "5ak3evfgktv0b14pe5so6nlajk",
+                                                    "text": "异步请求",
+                                                    "created": 1588433503576
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "469gdep0dlgs8aoqnk6pbtg34b",
+                                    "text": "koa2与go",
+                                    "created": 1588433503576
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "7bhb81hq987rdc5nnbqskv9c9l",
+                                            "text": "利用RESTful / RPC",
+                                            "created": 1588433503576
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "0gcegr42hqmtvms658vagk1g7q",
+                            "text": "nginx是干嘛的?",
+                            "created": 1588433503576
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "2430p6gshdrrt94382b2ckc0go",
+                    "text": "服务端渲染",
+                    "created": 1588433503576
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "2m8sga4r6oj22vgvv5haorh6pa",
+                            "text": "SPA应用优化",
+                            "created": 1588433503576
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "5estffgcdgsfukhuoof87fe8p5",
+                            "text": "node",
+                            "created": 1588433503576
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "00it6s1on6afkat1pqgv3b4s02",
+                    "text": "webpack",
+                    "created": 1588433503576
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "004p13o8si6rkm24bbnme7u0b6",
+                            "text": "多个文件打包",
+                            "created": 1588433503576
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "053skuvd2ltvbs9ugodo8g8qf3",
+                            "text": "单个大文件分离",
+                            "created": 1588433503576
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "7a14vttbfiaeom1d3e36cs3be4",
+                            "text": "存疑",
+                            "created": 1588433503576
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "7cd1ka9a1qk6dsk37rqmvql48b",
+                    "text": "Nginx负载均衡?",
+                    "created": 1588433503576
+                },
+                "children": []
+            },
+            {
+                "data": {
+                    "id": "1veh2c0oq0hf0ivs0nisut2bre",
+                    "text": "SPA",
+                    "created": 1588433503576
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "0enljtt36v41fkqckpf6q1kavt",
+                            "text": "单页应用",
+                            "created": 1588433503576
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "4j2clgc28jmfsbc3090gh7oifm",
+                                    "text": "富功能",
+                                    "created": 1588433503576
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "4rdbes3s40jlb5n5jakfqmd5ll",
+                                            "text": "js很大",
+                                            "created": 1588433503576
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "2u385d44bjgduk99ak3istjn4k",
+                                    "text": "路由功能",
+                                    "created": 1588433503576
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "70kji8p4qdqjioqgqhr77sk7b5",
+                                            "text": "概念路由，实际是JS控制dom",
+                                            "created": 1588433503576
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "2qa4ldg3o0nor0kcpqq22cuavo",
+                                            "text": "vue-router",
+                                            "created": 1588433503576
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "right",
+    "theme": "fresh-blue-compat",
+    "version": "1.4.43"
+}

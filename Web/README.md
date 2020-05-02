@@ -1,24 +1,16 @@
-# Web全栈学习
+# Web
 
-# 前端
+## 资料
 
-前端知识总结见于文件夹内的 `front_end.xmind`
-
-# Go
-
-- [Go Http服务原理分析](go/goHttp.md)
-
-# JS
-
-- [7天学会NodeJS](https://jinnianshilongnian.iteye.com/blog/1752171)
-- [KoaJS-后端框架](koajs/README.md)
+- [7天学会NodeJS](https://nqdeng.github.io/7-days-nodejs/)
+- [KoaJS-nodejs后端框架](koajs/README.md)
 - [EJS-模板引擎](ejs/README.md)
-
-# 网络基础
-
-见于本文件夹内的 `np.xmind`
-
-# Best-practice
-
 - [RESTful](http://www.ruanyifeng.com/blog/2018/10/restful-api-best-practices.html)
-  - 如何设计?
+- [PHP框架-Yii快速入门教程.pdf](php/Yii快速入门教程(完全整理).pdf)
+
+## 笔记
+
+- [前端知识思维导图](front_end.km)
+- [网络基础思维导图](np.xmind)
+- [Go Http服务原理分析](go/goHttp.md)
+- [PHP笔记](php/note1.md)

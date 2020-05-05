@@ -258,3 +258,13 @@ translate or delete characters
     - `;` 是结束符，而且需要`\`做bash转义（也就是`\;`）
     - 不支持alias
     - 例：`find /usr/bin /usr/sbin -perm /7000 -exec ls -l {} \;`
+- 条件参数
+  - `-a` 与
+    - `find /etc -size +50k -a -size -60k -exec ls -l {} \;`
+    - 找出介于50k和60k大小的文件
+  - `-o` 或
+    - `find /etc -size +1500k -o -size 0`
+  - `!` 非
+    - `find /etc -size +50k -a ! -user root -exec ls -ld {} \;`
+    - `find /etc -size +50k -a ! -user root -type f -exec ls -l {} \;`
+    - 上述两个一样，列出文件大于50K且所属用户不是root的文件

@@ -34,6 +34,7 @@
 TODO: 目录文件权限里的PATH移过来
 - [Bash特性](basic/bash_feature.md)
 - 管道命令
+- [Shell脚本语法](basic/shell_script.md)
 
 ### 存储
 

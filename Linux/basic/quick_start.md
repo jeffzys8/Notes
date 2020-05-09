@@ -129,6 +129,7 @@ q	|结束这次的man page|
 - `%j` 可看是一年中的第几天
 - 设定日期时间: `date [MMDDhhmm[[CC]YY][.ss]]`
 - 另一个设置日期时间的方法: `date -s "20170901 8:30:00"`
+- `--date 1 days ago`, `--date 1 days`
 
 ### `hwclock`
 显示或设定**硬件时钟**；硬件时钟是BIOS供电维护的时间

@@ -29,10 +29,10 @@
 - [组装Linux机器的硬件选择 - 鸟哥](http://linux.vbird.org/linux_basic/0130designlinux.php#hardware_select) TODO: 导入链接可不能算是学会了
 - [(实践)使用VirtualBox安装WindowsXP+CentOS双系统](basic/virtual_double_sys.md)
 
-### BASH
+### 终端
 
 TODO: 目录文件权限里的PATH移过来
-- [Bash特性](basic/bash_feature.md)
+- [Bash](basic/bash.md)
 - 管道命令
 - [Shell脚本语法](basic/shell_script.md)
 

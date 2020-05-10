@@ -87,14 +87,15 @@ $相关:
 
 if
 ```sh
-if [ 条件判断式一 ]; then
+if [ condition1 ] && [ condition2 ]; then
   ...
-elif [ 条件判断式二 ]; then
+elif [ condition3 ] || [ condition4 ]; then
   ...
 else
-  ...
+  : # 留空
 fi
 ```
+- `:`留空
 
 利用`netstat -tuln`来取得目前计算机有启动的服务
 

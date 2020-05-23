@@ -268,3 +268,8 @@ translate or delete characters
     - `find /etc -size +50k -a ! -user root -exec ls -ld {} \;`
     - `find /etc -size +50k -a ! -user root -type f -exec ls -l {} \;`
     - 上述两个一样，列出文件大于50K且所属用户不是root的文件
+
+## 文件比对
+
+- `diff` 以行为单位比较，一般是比较ASCII
+- `cmp` 按位比较，比较可执行文件比较好用

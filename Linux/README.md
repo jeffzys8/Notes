@@ -31,7 +31,6 @@
 
 ### 终端
 
-TODO: 目录文件权限里的PATH移过来
 - [Bash](basic/bash.md)
 - [管道命令](basic/pipe.md)
 - [正则表达式](basic/regexp.md)

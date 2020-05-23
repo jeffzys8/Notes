@@ -46,8 +46,102 @@
 
 ## 拓展正则语法
 
-> 比如`grep`命令要额外加参数才能用拓展正则
+- `grep -E` == `egrep`
+- `+` 1个或以上该字符
+- `?` 0个或1个该字符
+- `|` 或
+  - `egrep -n 'gd|good' regular_express.txt`
+  - `egrep -n 'gd|good|dog' regular_express.txt`
+- `()` 把字符串当字符处理，整个匹配（用以配合 '|'）
+  - `egrep -n 'g(la|oo)d' regular_express.txt`
+- `()+` 多个重复字符串
 
 ## `sed`
 
+sed 可将资料进行取代、删除、新增、选取特定行等等
+
+- 选取 `p`:
+    ```sh
+    nl /etc/passwd | sed -n '5,7p' # -n 必须带上
+    ```
+- 删除 `d`:
+    ```sh
+    nl /etc/passwd | sed '2d' # 删除 2 行
+    nl /etc/passwd | sed '2,5d' # 删除 2-5 行
+    nl /etc/passwd | sed '3,$d' # 删除 3-last 行
+    nl /etc/passwd | sed '/str/d' # 删除匹配str的行
+    ```
+- 覆盖 `c`:
+    ```sh
+    nl /etc/passwd | sed '2,5c No 2-5 number' # 4行会被替换成1行内容
+    ```
+- 下方插入 `a`:
+    ```sh
+    nl /etc/passwd | sed '2a drink tea'
+    nl /etc/passwd | sed '2a drink tea or .....\
+    > drink beer' # 增加了两行
+    ```
+- 上方插入 `i`:
+    ```sh
+    nl /etc/passwd | sed '2,5i drink tea'
+    ```
+- 内容替换 `s/old/new/g`:
+    ```sh
+    sed 's/要被取代的字串/新的字串/g'
+    ```
+- 直接修改文件内容（**危险**）`-i`
+
+## `printf`
+
+格式化输出
+
+```
+选项与参数：
+关于格式方面的几个特殊样式：
+       \a 警告声音输出
+       \b 倒退键(backspace)
+       \f 清除萤幕(form feed)
+       \n 输出新的一行
+       \r 亦即Enter 按键
+       \t 水平的[tab] 按键
+       \v 垂直的[tab] 按键
+       \xNN NN 为两位数的数字，可以转换数字成为字元。
+关于C 程式语言内，常见的变数格式
+       %ns 那个n 是数字， s 代表string ，亦即多少个字元；
+       %ni 那个n 是数字， i 代表integer ，亦即多少整数位数；
+       %N.nf 那个n 与N 都是数字， f 代表floating (浮点)，如果有小数位数，
+             假设我共要十个位数，但小数点有两位，即为%10.2f 啰！
+```
+
 ## `awk`
+
+
+逐行以列为最小单位处理数据
+
+> awk实际上是一门语言，支持相当多的复杂操作。GNU实现了符合该语法规范的Linux程序 `gawk`，现在centos的`awk`-->`gawk`。这里只是介绍最常见的用法。
+
+```sh
+awk '条件类型1{动作1}条件类型2{动作2} ...' filename
+```
+- `$0` 表示整行数据，`$1`开始表示某一列的数据
+- `NF` 当前行的列数，`NR` 当前行数，`FS` 分隔符
+- 例：不带条件判断的简单例子
+  ```sh
+  last -n 5| awk '{print $1 "\t lines: " NR "\t columns: " NF}'
+  ```
+- 例：预设分隔符要用`BEGIN`否则第一行会维持默认的分隔符（空格或\t）
+  ```sh
+  cat /etc/passwd | awk 'BEGIN {FS=":"} $3 < 10 {print $1 "\t " $3}'
+  ```
+  同样的也有`END`用作后处理
+- 例：实现复杂的计算任务
+  ```sh
+  $ cat pay.txt | \ 
+  > awk 'NR==1{printf "%10s %10s %10s %10s %10s\n",$1,$2,$3,$4,"Total" } 
+  > NR>=2{total = $2 + $3 + $4 
+  > printf "%10s %10d %10d %10d %10.2f\n", $1, $2, $3, $4, total}'
+  ```
+  - 中间的`total`是变量，像python一样易用
+  - 同个`{}`的不同指令要用`;`或者`换行`分开
+  - 使用`printf`的话要自己`\n`换行
+- 还可以进行循环操作，此处先不展开，用到再说。

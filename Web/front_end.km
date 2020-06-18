@@ -9,8 +9,8 @@
             {
                 "data": {
                     "id": "37rrohtuav34fb06nhoa07ig9b",
-                    "text": "框架",
-                    "created": 1588433503575
+                    "created": 1588433503575,
+                    "text": "框架"
                 },
                 "children": [
                     {
@@ -29,29 +29,190 @@
                                 "children": []
                             }
                         ]
+                    },
+                    {
+                        "data": {
+                            "id": "c3469jgcrs80",
+                            "created": 1590852835538,
+                            "text": "React"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c3469kqjpew0",
+                                    "created": 1590852838331,
+                                    "text": "react router"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c346eos1jhc0",
+                                    "created": 1590853238950,
+                                    "text": "状态保存",
+                                    "expandState": "expand"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "c3469n33t0g0",
+                                            "created": 1590852843444,
+                                            "text": "react-keep-alive"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "c346acrrko00",
+                                                    "created": 1590852899355,
+                                                    "text": "会被router搞？",
+                                                    "layout_right_offset": {
+                                                        "x": 0,
+                                                        "y": 14
+                                                    }
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "c346lp4zdq00",
+                                                    "created": 1590853788281,
+                                                    "text": "<KeepAlive>组件信息保存到<Provider>内",
+                                                    "layout_right_offset": {
+                                                        "x": 2,
+                                                        "y": -54
+                                                    }
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "c346vxb82fk0",
+                                                    "created": 1590854589715,
+                                                    "text": "window.href 会导致状态没了吗"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "c346az2uzao0",
+                                            "created": 1590852947915,
+                                            "text": "react hooks"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "c346ejq48v40",
+                                                    "created": 1590853227949,
+                                                    "text": "能解决状态保存的问题？"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "c346opu8fzc0",
+                                            "created": 1590854024901,
+                                            "text": "redux"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "c346q01wbvs0",
+                                                    "created": 1590854125496,
+                                                    "text": "状态容器，提供可预测化的状态管理"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "c34712peans0",
+                                                    "created": 1590854993276,
+                                                    "text": "单一数据源",
+                                                    "note": "唯一的一个state tree\n\n像React中不同的组件有各自的state，一个组件的state变换会影响自己的view的同时，可能还同时影响了别的组件的state，同时影响了别的组件的view，导致过程不可知。\n\n"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "c3472e0ettk0",
+                                                    "created": 1590855096251,
+                                                    "text": "State只读，只能通过action修改"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "c3472ii6efc0",
+                                                    "created": 1590855106032,
+                                                    "text": "使用纯函数reducer来执行action",
+                                                    "note": "Reducer：接收先前的 state 和 action，并返回新的 state"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "c347n2js7280",
+                                                    "created": 1590856716948,
+                                                    "text": "https://learnredux.com/"
+                                                },
+                                                "children": [
+                                                    {
+                                                        "data": {
+                                                            "id": "c347n44bseg0",
+                                                            "created": 1590856720367,
+                                                            "text": "react router"
+                                                        },
+                                                        "children": []
+                                                    },
+                                                    {
+                                                        "data": {
+                                                            "id": "c347n6jpaio0",
+                                                            "created": 1590856725651,
+                                                            "text": "react"
+                                                        },
+                                                        "children": []
+                                                    },
+                                                    {
+                                                        "data": {
+                                                            "id": "c347n79t2k00",
+                                                            "created": 1590856727229,
+                                                            "text": "redux"
+                                                        },
+                                                        "children": []
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "data": {
                     "id": "2jbee1l761d2l37gsp08ia2mml",
-                    "text": "模板引擎",
-                    "created": 1588433503575
+                    "created": 1588433503575,
+                    "text": "模板引擎"
                 },
                 "children": [
                     {
                         "data": {
                             "id": "0ee6669cs69dpht37v7qke8dug",
-                            "text": "ejs",
-                            "created": 1588433503575
+                            "created": 1588433503575,
+                            "text": "ejs"
                         },
                         "children": []
                     },
                     {
                         "data": {
                             "id": "51knt4nohtgfsro0c2qjut79vu",
-                            "text": "vue也可以只发挥模板引擎的作用",
-                            "created": 1588433503575
+                            "created": 1588433503575,
+                            "text": "vue也可以只发挥模板引擎的作用"
                         },
                         "children": []
                     }
@@ -59,70 +220,113 @@
             },
             {
                 "data": {
-                    "id": "2c2lnj5ppjrb4ekngp07ag5so6",
-                    "text": "前后端分离",
-                    "created": 1588433503575
+                    "id": "00it6s1on6afkat1pqgv3b4s02",
+                    "created": 1588433503576,
+                    "text": "webpack"
                 },
                 "children": [
                     {
                         "data": {
-                            "id": "50gng0at47fdpuafk6cp5uf64t",
-                            "text": "vue + 后台 不算?",
-                            "created": 1588433503575
+                            "id": "004p13o8si6rkm24bbnme7u0b6",
+                            "created": 1588433503576,
+                            "text": "多个文件打包"
                         },
-                        "children": [
-                            {
-                                "data": {
-                                    "id": "24odscc8fmk619vi7u87ufg860",
-                                    "text": "只用go怎么分发",
-                                    "created": 1588433503576
-                                },
-                                "children": []
-                            }
-                        ]
+                        "children": []
                     },
                     {
                         "data": {
-                            "id": "106jiaa081cki0gtlrn5r9bb3e",
-                            "text": "暂时的理解",
-                            "created": 1588433503576
+                            "id": "053skuvd2ltvbs9ugodo8g8qf3",
+                            "created": 1588433503576,
+                            "text": "单个大文件分离"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "7cd1ka9a1qk6dsk37rqmvql48b",
+                    "created": 1588433503576,
+                    "text": "Nginx负载均衡?"
+                },
+                "children": []
+            },
+            {
+                "data": {
+                    "id": "c346wjyarts0",
+                    "created": 1590854638999,
+                    "text": "概念",
+                    "expandState": "expand"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "2c2lnj5ppjrb4ekngp07ag5so6",
+                            "created": 1588433503575,
+                            "text": "前后端分离"
                         },
                         "children": [
                             {
                                 "data": {
-                                    "id": "056ir3lh34ahhccbhlngbmlfsd",
-                                    "text": "nginx负载均衡",
-                                    "created": 1588433503576
-                                },
-                                "children": []
-                            },
-                            {
-                                "data": {
-                                    "id": "12ppt97t5fnedpe4rd847b6g5n",
-                                    "text": "node服务器(koa2)与浏览器交互",
-                                    "created": 1588433503576
+                                    "id": "106jiaa081cki0gtlrn5r9bb3e",
+                                    "created": 1588433503576,
+                                    "text": "暂时的理解"
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "id": "3clndcor6r7hauourb5dkq8s9k",
-                                            "text": "koa发页面给浏览器",
-                                            "created": 1588433503576
+                                            "id": "056ir3lh34ahhccbhlngbmlfsd",
+                                            "created": 1588433503576,
+                                            "text": "nginx负载均衡"
                                         },
                                         "children": []
                                     },
                                     {
                                         "data": {
-                                            "id": "36m8bhvs1mmvk7arr1fkagerhe",
-                                            "text": "浏览器axios请求到koa2",
-                                            "created": 1588433503576
+                                            "id": "12ppt97t5fnedpe4rd847b6g5n",
+                                            "created": 1588433503576,
+                                            "text": "node服务器(koa2)与浏览器交互"
                                         },
                                         "children": [
                                             {
                                                 "data": {
-                                                    "id": "5ak3evfgktv0b14pe5so6nlajk",
-                                                    "text": "异步请求",
-                                                    "created": 1588433503576
+                                                    "id": "3clndcor6r7hauourb5dkq8s9k",
+                                                    "created": 1588433503576,
+                                                    "text": "koa发页面给浏览器"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "36m8bhvs1mmvk7arr1fkagerhe",
+                                                    "created": 1588433503576,
+                                                    "text": "浏览器axios请求到koa2"
+                                                },
+                                                "children": [
+                                                    {
+                                                        "data": {
+                                                            "id": "5ak3evfgktv0b14pe5so6nlajk",
+                                                            "created": 1588433503576,
+                                                            "text": "异步请求"
+                                                        },
+                                                        "children": []
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "469gdep0dlgs8aoqnk6pbtg34b",
+                                            "created": 1588433503576,
+                                            "text": "koa2与go"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "7bhb81hq987rdc5nnbqskv9c9l",
+                                                    "created": 1588433503576,
+                                                    "text": "利用RESTful / RPC"
                                                 },
                                                 "children": []
                                             }
@@ -132,154 +336,122 @@
                             },
                             {
                                 "data": {
-                                    "id": "469gdep0dlgs8aoqnk6pbtg34b",
-                                    "text": "koa2与go",
-                                    "created": 1588433503576
+                                    "id": "0gcegr42hqmtvms658vagk1g7q",
+                                    "created": 1588433503576,
+                                    "text": "nginx是干嘛的?"
                                 },
-                                "children": [
-                                    {
-                                        "data": {
-                                            "id": "7bhb81hq987rdc5nnbqskv9c9l",
-                                            "text": "利用RESTful / RPC",
-                                            "created": 1588433503576
-                                        },
-                                        "children": []
-                                    }
-                                ]
+                                "children": []
                             }
                         ]
                     },
                     {
                         "data": {
-                            "id": "0gcegr42hqmtvms658vagk1g7q",
-                            "text": "nginx是干嘛的?",
-                            "created": 1588433503576
-                        },
-                        "children": []
-                    }
-                ]
-            },
-            {
-                "data": {
-                    "id": "2430p6gshdrrt94382b2ckc0go",
-                    "text": "服务端渲染",
-                    "created": 1588433503576
-                },
-                "children": [
-                    {
-                        "data": {
-                            "id": "2m8sga4r6oj22vgvv5haorh6pa",
-                            "text": "SPA应用优化",
-                            "created": 1588433503576
-                        },
-                        "children": []
-                    },
-                    {
-                        "data": {
-                            "id": "5estffgcdgsfukhuoof87fe8p5",
-                            "text": "node",
-                            "created": 1588433503576
-                        },
-                        "children": []
-                    }
-                ]
-            },
-            {
-                "data": {
-                    "id": "00it6s1on6afkat1pqgv3b4s02",
-                    "text": "webpack",
-                    "created": 1588433503576
-                },
-                "children": [
-                    {
-                        "data": {
-                            "id": "004p13o8si6rkm24bbnme7u0b6",
-                            "text": "多个文件打包",
-                            "created": 1588433503576
-                        },
-                        "children": []
-                    },
-                    {
-                        "data": {
-                            "id": "053skuvd2ltvbs9ugodo8g8qf3",
-                            "text": "单个大文件分离",
-                            "created": 1588433503576
-                        },
-                        "children": []
-                    },
-                    {
-                        "data": {
-                            "id": "7a14vttbfiaeom1d3e36cs3be4",
-                            "text": "存疑",
-                            "created": 1588433503576
-                        },
-                        "children": []
-                    }
-                ]
-            },
-            {
-                "data": {
-                    "id": "7cd1ka9a1qk6dsk37rqmvql48b",
-                    "text": "Nginx负载均衡?",
-                    "created": 1588433503576
-                },
-                "children": []
-            },
-            {
-                "data": {
-                    "id": "1veh2c0oq0hf0ivs0nisut2bre",
-                    "text": "SPA",
-                    "created": 1588433503576
-                },
-                "children": [
-                    {
-                        "data": {
-                            "id": "0enljtt36v41fkqckpf6q1kavt",
-                            "text": "单页应用",
-                            "created": 1588433503576
+                            "id": "2430p6gshdrrt94382b2ckc0go",
+                            "created": 1588433503576,
+                            "text": "服务端渲染"
                         },
                         "children": [
                             {
                                 "data": {
-                                    "id": "4j2clgc28jmfsbc3090gh7oifm",
-                                    "text": "富功能",
-                                    "created": 1588433503576
+                                    "id": "2m8sga4r6oj22vgvv5haorh6pa",
+                                    "created": 1588433503576,
+                                    "text": "SPA应用优化"
                                 },
-                                "children": [
-                                    {
-                                        "data": {
-                                            "id": "4rdbes3s40jlb5n5jakfqmd5ll",
-                                            "text": "js很大",
-                                            "created": 1588433503576
-                                        },
-                                        "children": []
-                                    }
-                                ]
+                                "children": []
                             },
                             {
                                 "data": {
-                                    "id": "2u385d44bjgduk99ak3istjn4k",
-                                    "text": "路由功能",
-                                    "created": 1588433503576
+                                    "id": "5estffgcdgsfukhuoof87fe8p5",
+                                    "created": 1588433503576,
+                                    "text": "node"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "1veh2c0oq0hf0ivs0nisut2bre",
+                            "created": 1588433503576,
+                            "text": "SPA"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "0enljtt36v41fkqckpf6q1kavt",
+                                    "created": 1588433503576,
+                                    "text": "单页应用"
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "id": "70kji8p4qdqjioqgqhr77sk7b5",
-                                            "text": "概念路由，实际是JS控制dom",
-                                            "created": 1588433503576
+                                            "id": "4j2clgc28jmfsbc3090gh7oifm",
+                                            "created": 1588433503576,
+                                            "text": "富功能"
                                         },
-                                        "children": []
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "4rdbes3s40jlb5n5jakfqmd5ll",
+                                                    "created": 1588433503576,
+                                                    "text": "js很大"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
                                     },
                                     {
                                         "data": {
-                                            "id": "2qa4ldg3o0nor0kcpqq22cuavo",
-                                            "text": "vue-router",
-                                            "created": 1588433503576
+                                            "id": "2u385d44bjgduk99ak3istjn4k",
+                                            "created": 1588433503576,
+                                            "text": "路由功能"
                                         },
-                                        "children": []
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "70kji8p4qdqjioqgqhr77sk7b5",
+                                                    "created": 1588433503576,
+                                                    "text": "概念路由，实际是JS控制dom"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "2qa4ldg3o0nor0kcpqq22cuavo",
+                                                    "created": 1588433503576,
+                                                    "text": "vue-router"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
                                     }
                                 ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c347ucf1k1s0",
+                    "created": 1590857286979,
+                    "text": "疑问"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c347udrsezk0",
+                            "created": 1590857289926,
+                            "text": "JS底层如何实现异步编程"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c347ulloabc0",
+                                    "created": 1590857306971,
+                                    "text": "比如ajax如何实现的异步"
+                                },
+                                "children": []
                             }
                         ]
                     }

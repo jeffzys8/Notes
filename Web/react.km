@@ -1,0 +1,345 @@
+{
+    "root": {
+        "data": {
+            "id": "c38cw5qj0140",
+            "created": 1591277774540,
+            "text": "React"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "c3469kqjpew0",
+                    "created": 1590852838331,
+                    "text": "react router",
+                    "layout": null
+                },
+                "children": []
+            },
+            {
+                "data": {
+                    "id": "c346eos1jhc0",
+                    "created": 1590853238950,
+                    "text": "状态保存",
+                    "expandState": "expand",
+                    "layout": null
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c3469n33t0g0",
+                            "created": 1590852843444,
+                            "text": "react-keep-alive",
+                            "layout": null
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c346acrrko00",
+                                    "created": 1590852899355,
+                                    "text": "会被router搞？",
+                                    "layout": null
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c346lp4zdq00",
+                                    "created": 1590853788281,
+                                    "text": "<KeepAlive>组件信息保存到<Provider>内",
+                                    "layout": null
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c346vxb82fk0",
+                                    "created": 1590854589715,
+                                    "text": "window.href 会导致状态没了吗",
+                                    "layout": null
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c346az2uzao0",
+                            "created": 1590852947915,
+                            "text": "react hooks",
+                            "layout": null
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c346ejq48v40",
+                                    "created": 1590853227949,
+                                    "text": "能解决状态保存的问题？",
+                                    "layout": null
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c346opu8fzc0",
+                            "created": 1590854024901,
+                            "text": "redux",
+                            "layout": null
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c346q01wbvs0",
+                                    "created": 1590854125496,
+                                    "text": "状态容器，提供可预测化的状态管理",
+                                    "layout": null
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c34712peans0",
+                                    "created": 1590854993276,
+                                    "text": "单一数据源",
+                                    "note": "唯一的一个state tree\n\n像React中不同的组件有各自的state，一个组件的state变换会影响自己的view的同时，可能还同时影响了别的组件的state，同时影响了别的组件的view，导致过程不可知。\n\n",
+                                    "layout": null
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c3472e0ettk0",
+                                    "created": 1590855096251,
+                                    "text": "State只读，只能通过action修改",
+                                    "layout": null
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c3472ii6efc0",
+                                    "created": 1590855106032,
+                                    "text": "使用纯函数reducer来执行action",
+                                    "note": "Reducer：接收先前的 state 和 action，并返回新的 state",
+                                    "layout": null
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c347n2js7280",
+                                    "created": 1590856716948,
+                                    "text": "https://learnredux.com/",
+                                    "layout": null
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "c347n44bseg0",
+                                            "created": 1590856720367,
+                                            "text": "react router",
+                                            "layout": null
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "c347n6jpaio0",
+                                            "created": 1590856725651,
+                                            "text": "react",
+                                            "layout": null
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "c347n79t2k00",
+                                            "created": 1590856727229,
+                                            "text": "redux",
+                                            "layout": null
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c38d111xjkw0",
+                    "created": 1591278156167,
+                    "text": "基础内容",
+                    "layout": null
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c38cy6gjxa80",
+                            "created": 1591277932842,
+                            "text": "JSX",
+                            "layout": null
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c38cygd4a7k0",
+                                    "created": 1591277954402,
+                                    "text": "babel编译",
+                                    "layout": null
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c38d178m4mw0",
+                            "created": 1591278169632,
+                            "text": "元素树",
+                            "layout": null
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c38d1ihcbd40",
+                                    "created": 1591278194104,
+                                    "text": "按需更新",
+                                    "note": "React DOM 会将元素和它的子元素与它们之前的状态进行比较，并只会进行必要的更新来使 DOM 达到预期的状态。",
+                                    "layout": null
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c38dd9uolh40",
+                                    "created": 1591279115690,
+                                    "text": "React Dom.render"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c38d5ggivi00",
+                            "created": 1591278503158,
+                            "text": "组件",
+                            "layout": null
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c38d7guxabc0",
+                                    "created": 1591278660757,
+                                    "text": "props",
+                                    "note": "当 React 元素为用户自定义组件时，它会将 JSX 所接收的属性（attributes）以及子组件（children）转换为单个对象传递给组件，这个对象被称之为 “props”。"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "c38daz2qsg80",
+                                            "created": 1591278935504,
+                                            "text": "不能修改！"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "c38d8fnjycg0",
+                                    "created": 1591278736498,
+                                    "text": "必须大写"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c38desf4dio0",
+                                    "created": 1591279234472,
+                                    "text": "super(props)"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c38dg7wth8w0",
+                                    "created": 1591279346558,
+                                    "text": "生命周期"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c38di1sp2g00",
+                            "created": 1591279489976,
+                            "text": "State"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c38di4it52g0",
+                                    "created": 1591279495908,
+                                    "text": "异步",
+                                    "note": "因为 this.props 和 this.state 可能会异步更新，所以你不要依赖他们的值来更新下一个状态。\n\n例如，此代码可能会无法更新计数器：\n```js\n// Wrong\nthis.setState({\n  counter: this.state.counter + this.props.increment,\n});\n```\n要解决这个问题，可以让 setState() 接收一个函数而不是一个对象。这个函数用上一个 state 作为第一个参数，将此次更新被应用时的 props 做为第二个参数：\n```js\n// Correct\nthis.setState((state, props) => ({\n  counter: state.counter + props.increment\n}));\n```"
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c3c7y9euwn40",
+                    "created": 1591670073547,
+                    "text": "antd"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c3c7yabpk800",
+                            "created": 1591670075534,
+                            "text": "Table"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c3c7ybvhbnk0",
+                                    "created": 1591670078906,
+                                    "text": "column中加className修改样式"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c3d9sa723hs0",
+                            "created": 1591776807244,
+                            "text": "Form"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c3d9sb4yqrk0",
+                                    "created": 1591776809294,
+                                    "text": "getFieldDecorator 双向绑定"
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "right",
+    "theme": "fresh-blue-compat",
+    "version": "1.4.43"
+}

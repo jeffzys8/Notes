@@ -2,7 +2,7 @@
     "root": {
         "data": {
             "id": "5stpqd9fv8ooo5vb8uo8ffph65",
-            "text": "Javascript入门",
+            "text": "Javascript",
             "created": 1588435331225
         },
         "children": [
@@ -403,7 +403,18 @@
                                     "text": "array",
                                     "created": 1588435331226
                                 },
-                                "children": []
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "c3et2xpltgo0",
+                                            "created": 1591932803118,
+                                            "text": "创建多个空对象组成的数组",
+                                            "hyperlink": "https://juejin.im/post/5c44391ee51d4502fd7578c0",
+                                            "hyperlinkTitle": "https://juejin.im/post/5c44391ee51d4502fd7578c0"
+                                        },
+                                        "children": []
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -436,7 +447,8 @@
                         "data": {
                             "id": "7smnicv8kebvbkd48olh9t9flj",
                             "text": "* 数据类型检测",
-                            "created": 1588435331226
+                            "created": 1588435331226,
+                            "expandState": "expand"
                         },
                         "children": [
                             {
@@ -464,6 +476,41 @@
                                 "children": []
                             }
                         ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c347yco744g0",
+                    "created": 1590857600989,
+                    "text": "ES6"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c347ydw2iq80",
+                            "created": 1590857603642,
+                            "text": "默认参数值",
+                            "note": "```\nimport { VisibilityFilters } from './actions'\n\nconst initialState = {\n  visibilityFilter: VisibilityFilters.SHOW_ALL,\n  todos: []\n};\n\nfunction todoApp(state, action) {\n  if (typeof state === 'undefined') {\n    return initialState\n  }\n  // 这里暂不处理任何 action，\n  // 仅返回传入的 state。\n  return state\n}\n```\n这里一个技巧是使用 ES6 参数默认值语法 来精简代码。\n```\nfunction todoApp(state = initialState, action) {\n  // 这里暂不处理任何 action，\n  // 仅返回传入的 state。\n  return state\n}\n```"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c3482im5d0g0",
+                    "created": 1590857927382,
+                    "text": "疑问"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c3482ky3bjc0",
+                            "created": 1590857932458,
+                            "text": "export是否会保持变量状态"
+                        },
+                        "children": []
                     }
                 ]
             }

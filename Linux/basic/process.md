@@ -169,3 +169,56 @@ KiB Swap: 1048572 total, 1048572 free,         0 used . 2318680 avail Mem
 
 - `-p` 并同时列出每个process 的PID；
 - `-u` 并同时列出每个process 的所属帐号名称。
+
+## 进程管理 kill
+
+- `kill`可以帮我们将这个signal传送给某个工作(%jobnumber)或者是某个PID (直接输入数字)
+- `killall`输入进程名
+
+```
+1	SIGHUP	启动被终止的程序，可让该PID 重新读取自己的设定档，类似重新启动
+2	SIGINT	相当于用键盘输入[ctrl]-c 来中断一个程序的进行
+9	SIGKILL	代表强制中断一个程序的进行，如果该程序进行到一半， 那么尚未完成的部分可能会有『半产品』产生，类似vim会有.filename.swp 保留下来。
+15	SIGTERM	以正常的结束程序来终止该程序。由于是正常的终止， 所以后续的动作会将他完成。不过，如果该程序已经发生问题，就是无法使用正常的方法终止时， 输入这个signal 也是没有用的。
+19	SIGSTOP	相当于用键盘输入[ctrl]-z 来暂停一个程序的进行
+```
+
+## Priority & Nice
+
+> 决定进程的执行顺序、快慢，
+
+两个值越低优先级越高，但PRI是kernel动态调整的，用户只能调NICE [-20, 19]，其中root随便调，但一般用户只能[0, 19]，而且还只能往高了调。
+```
+PRI(new) = PRI(old) + nice
+```
+
+## free
+
+> 显示内存占用，包括物理内存和swap空间
+
+- 有一次面试被问到，系统没什么进程的时候内存占用很高是怎么回事（当时答不上来），这里有一个解释就是一些文件数据被 shared/buffers/cached 了，也就是 **被系统高效暂存起来** 了。当系统再次忙碌起来时，这些内存是可以被释放的。
+- 内存被用光挺正常，要更关注 **swap**
+
+## netstat
+
+```
+netstat -[atunlp] 
+选项与参数：
+-a ：将目前系统上所有的连线、监听、Socket 资料都列出来
+-t ：列出tcp 网路封包的资料
+-u ：列出udp 网路封包的资料
+-n ：不以程序的服务名称，以端口号(port number) 来显示；
+-l ：列出目前正在网路监听(listen) 的服务；
+-p ：列出该网路服务的程序PID 
+```
+
+包括了两部分信息：
+- Active Internet connections，网络连接
+- Active UNIX domain sockets，进程间socket通信
+
+## vmstat
+
+## 其他指令
+
+- uname
+- uptime

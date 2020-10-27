@@ -1,21 +1,21 @@
 - [HelloWorld](#helloworld)
-- [基础](#%E5%9F%BA%E7%A1%80)
-	- [包](#%E5%8C%85)
-	- [函数](#%E5%87%BD%E6%95%B0)
-	- [变量](#%E5%8F%98%E9%87%8F)
-	- [控制语句](#%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5)
-	- [指针](#%E6%8C%87%E9%92%88)
-	- [结构体](#%E7%BB%93%E6%9E%84%E4%BD%93)
-	- [数组和切片](#%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87)
-	- [映射](#%E6%98%A0%E5%B0%84)
-	- [函数值](#%E5%87%BD%E6%95%B0%E5%80%BC)
-	- [函数闭包](#%E5%87%BD%E6%95%B0%E9%97%AD%E5%8C%85)
-- [方法和接口](#%E6%96%B9%E6%B3%95%E5%92%8C%E6%8E%A5%E5%8F%A3)
-	- [方法](#%E6%96%B9%E6%B3%95)
-	- [接口](#%E6%8E%A5%E5%8F%A3)
-- [并发](#%E5%B9%B6%E5%8F%91)
-	- [协程](#%E5%8D%8F%E7%A8%8B)
-	- [管道](#%E7%AE%A1%E9%81%93)
+- [基础](#基础)
+	- [包](#包)
+	- [函数](#函数)
+	- [变量](#变量)
+	- [控制语句](#控制语句)
+	- [指针](#指针)
+	- [结构体](#结构体)
+	- [数组和切片](#数组和切片)
+	- [映射](#映射)
+	- [函数值](#函数值)
+	- [函数闭包](#函数闭包)
+- [方法和接口](#方法和接口)
+	- [方法](#方法)
+	- [接口](#接口)
+- [并发](#并发)
+	- [goroutine](#goroutine)
+	- [channel](#channel)
 
 # HelloWorld
 
@@ -215,6 +215,15 @@ var f float64 = i
 const World = "世界"
 ```
 
+数值常量是高精度的值，应该就是在真正被赋值之前以表达式形式存在(不过其精度测试了一下也是有上限的，但没有深究下去)
+```Go
+const (
+	Big = 1 << 100
+	Small = Big >> 99 // 从表达式即为 1 << 1 == 2
+)
+
+```
+
 ## 控制语句
 
 Go中循环结构只有 for; for无小括号，但一定要有大括号
@@ -331,7 +340,7 @@ func main() {
 var p *int
 ```
 
-& * 操作和 C比较类似，但没有指针运算
+& * 操作和 C比较类似，**但没有指针运算**
 ```Go
 //&操作
 i := 42
@@ -447,7 +456,7 @@ if s == nil {
 }
 ```
 
-用make创建切片 - 相当于动态创建数组，初始值都为0
+用make创建切片 - **相当于动态创建数组**，初始值都为0
 ```Go
 a := make([]int, 5)  // len(a)=5
 b := make([]int, 0, 5) // len(b)=0, cap(b)=5
@@ -557,12 +566,11 @@ fmt.Println(k["hello"])
 ```Go
 type Vertex struct {
 	Lat, Long float64
-	Short float64
 }
 
 func main() {
 	m := make(map[string]Vertex)
-	m["Bell Labs"] = Vertex{1,2,3}
+	m["Bell Labs"] = Vertex{1,2}
 	fmt.Println(m["Bell Labs"])
 }
 ```
@@ -611,9 +619,9 @@ _, ok := m[key]
 //删除元素：
 delete(m, key)
 ```
-自创的和if复合使用
+“自创”的和if复合使用
 ```Go
-if _,ok:=m["Answer"];ok==true{}
+if _,ok:=m["Answer"];ok{}
 ```
 
 练习：单词检测
@@ -831,11 +839,12 @@ type Vertex struct {
 func (v *Vertex) Abs() float64 {
 	return math.Sqrt(v.X*v.X + v.Y*v.Y)
 }
-
 ```
 
-```接口值```也是一个对象，包含了具体对象的值以及它的类型，可以用printf输出；<br>
-未赋值的接口值其对象值和类型都为```<nil>```
+
+`接口值`也是一个对象，包含了具体对象的值以及它的类型，可以用printf输出；
+未赋值的接口值其对象值和类型都为`<nil>`
+
 ```Go
 type I interface {
 	M()
@@ -858,12 +867,17 @@ func main() {
 	fmt.Printf("(%v, %T)\n", i, i)
 }
 
+func describe(i I) {
+	fmt.Printf("(%v, %T)\n", i, i)
+}
+
 /*
 结果：({Hello}, main.T)
 */
 ```
 
-如果将某个类型的```nil```对象赋予某个接口，方法依然会被调用
+
+如果将某个类型的`nil`对象赋予某个接口，方法依然会被调用
 ```Go
 var t *T
 i = t
@@ -875,7 +889,7 @@ i.M()
 */
 ```
 
-对```nil```接口（注意不是和上面的```nil```对象值不同，这里是连类型都是```nil```）调用方法会panic
+对`nil`接口（注意不是和上面的`nil`对象值不同，这里是连类型都是`nil`）调用方法会panic
 
 ```Go
 var i I
@@ -906,7 +920,7 @@ f = i.(float64)
 fmt.Println(f)
 ```
 
-接口类型选择(switch)
+接口类型选择(好像一定要搭配`switch`)
 ```Go
 switch v := i.(type) {
 case int:
@@ -918,7 +932,7 @@ default:
 }
 ```
 
-**Stringer**类型，在```fmt```中的，是最普遍的接口之一。比如一个Print一个对象，默认会输出对象数据，但可以通过实现 ```String()```方法改变输出
+**Stringer**类型，在`fmt`中的，是最普遍的接口之一。比如一个Print一个对象，默认会输出对象数据，但可以通过实现 `String()`方法改变输出
 
 ```Go
 type Person struct {
@@ -941,7 +955,7 @@ func main() {
 */
 ```
 
-练习：输出IP地址。用到了fmt.Sprintf
+练习：输出IP地址。用到了`fmt.Sprintf`，这个函数会返回一个按需格式化的字符串
 ```Go
 package main
 import "fmt"
@@ -963,7 +977,7 @@ func main() {
 	}
 }
 ```
-Go用`error`类型来标识错误, 该接口具有`Error() string`方法; 函数返回都应检测`error`是否为`nil`
+Go用`error`类型来标识错误, 该接口具有`Error() string`方法; 函数返回都应检测`error`是否为`nil`; 类似`fmt.Stringer`接口，`fmt`包打印`error`时也会输出`Error()`执行结果字符串
 ```go
 i, err := strconv.Atoi("42")
 if err != nil {
@@ -973,14 +987,194 @@ if err != nil {
 fmt.Println("Converted integer:", i)
 ```
 
+<!-- TODO: 补充错误处理编写 https://tour.go-zh.org/methods/20  -->
+错误处理大赏
+```Go
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func Sqrt(x float64) (float64, error) {
+	if x < 0 {
+		var tmp float64
+		return tmp, ErrNegativeSqrt(x)
+	}
+	
+	z := 1.0
+	count := 1
+	for math.Abs(z*z - x) > 1e-15 {
+		z -= (z*z - x) / (2*z)
+		fmt.Println("adjustRound:", count, "value:", z)
+		count += 1
+	}
+	return z, nil
+}
+
+func main() {
+	fmt.Println(Sqrt(2))
+	result, err := Sqrt(-2)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(result)
+	}
+}
+
+
+type ErrNegativeSqrt float64
+
+func (e ErrNegativeSqrt) Error() string {
+	return fmt.Sprint("cannot Sqrt negative number:", float64(e))
+}
+```
+
 `io.Reader`是读端的统一接口(基于一切是文件的设计理念), 这一接口在文件、网络传输; 该接口需实现方法
+
+其中`n`为读入数,  文件读取结束时`err`为`io.EOF`
 ```go
 func (T) Read(b []byte) (n int, err error)
 ```
-`n`为读入数,  文件读取结束时`err`为`io.EOF`
+
+**例题**：实现一个产生无限`'A'`的 `Reader`
+在编写中发现为了保护只读性(应该)`Reader`接口指定的是非指针接受者的`Read()`
+
+**当然这里还存疑，io.Reader接口真的不能以指针作为接受者吗(代码里的r)**
+
+```Go
+type MyReader struct{}
+
+func (r MyReader) Read(to []byte) (int, error) {
+	for i := range to {
+		to[i] = 'A'
+	}
+	return len(to), nil
+}
+```
+
+**例题**：用一个`io.Reader`去包装另一个`io.Reader`，比如这里的解码流reader去包装编码流reader(编码方式为`rot13`，其实就是原字符 + 13)
+```Go
+package main
+
+import (
+	"io"
+	"os"
+	"strings"
+)
+
+type rot13Reader struct {
+	r io.Reader
+}
+
+func rot13(b byte) byte {
+	switch {
+	case 'A' <= b && b <= 'Z':
+		b = (b - 'A' + 13) % 26 + 'A'
+	case 'a' <= b && b <= 'z':
+		b = (b - 'a' + 13) % 26 + 'a'
+	}
+	return b
+}
+
+func (decoder rot13Reader) Read(buffer []byte) (n int, err error) {
+
+	count, err := decoder.r.Read(buffer)
+	if err != nil {
+		return 0, err
+	}
+	for i := 0; i < count; i++ {
+		buffer[i] = rot13(buffer[i])
+	}
+	return count, nil
+
+}
+
+func main() {
+	s := strings.NewReader("Lbh penpxrq gur pbqr!")
+	r := rot13Reader{s}
+	io.Copy(os.Stdout, &r)
+}
+
+```
 
 # 并发
 
-## 协程
+## goroutine
 
-## 管道
+goroutine 是由 Go 运行时管理的**轻量级线程**。
+
+```Go
+go f(x, y, z)
+```
+
+goroutine在相同的地址空间中运行(类似线程)，因此在访问共享的内存时必须进行同步。`sync`包提供了这种能力，不过在 Go 中并不经常用到，因为可以借助`Channel`来实现同步
+
+## channel
+
+阻塞地发送、接受数据
+```Go
+ch := make(chan int)	// 创建值类型为 int 的管道
+ch <- v    // 将 v 发送至信道 ch。
+v := <-ch  // 从 ch 接收值并赋予 v。
+```
+
+示例多线程求和
+```Go
+func sum(s []int, c chan int) {
+	sum := 0
+	for _, v := range s {
+		sum += v
+	}
+	c <- sum // 将和送入 c
+}
+
+func main() {
+	s := []int{7, 2, 8, -9, 4, 0}
+
+	c := make(chan int)
+	go sum(s[:len(s)/2], c)
+	go sum(s[len(s)/2:], c)
+	x, y := <-c, <-c // 从 c 中接收
+
+	fmt.Println(x, y, x+y)
+}
+```
+
+自己改写该出了有意思的死锁:
+```Go
+func sum(s []int, c chan int) int {
+	
+	sum := 0
+	for _, v := range s {
+		fmt.Println("	in")
+		sum += v
+	}
+	c <- sum // 将和送入 c
+	fmt.Println("hello")
+	return sum
+}
+
+func main() {
+	s := []int{7, 2, 8, -9, 4, 0}
+
+	c := make(chan int)
+	go sum(s[:len(s)/2], c)
+	go sum(s[len(s)/2:], c)
+	x, y := <-c, <-c // 从 c 中接收
+
+	fmt.Println(x, y, x+y, sum(s, c))
+	y = <-c
+	time.Sleep(time.Duration(2) * time.Second)
+}
+```
+程序报死锁，经debug阻塞在了`fmt.Println`的`sum(s, c)`中。由此可以得出一个结论：**在普通的chan中，发送端chan的数据如果未被接收端消费，也是会阻塞的**。这个引出了下一个话题：带缓冲的channel，仅当缓冲满了以后向其发送数据才会阻塞，上面就是缓冲区为空的channel
+
+```Go
+ch := make(chan int, 2) // 缓冲区为2的channel
+ch <- 1
+ch <- 2
+ch <- 3 // deadlock!
+```
+

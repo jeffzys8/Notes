@@ -286,7 +286,40 @@
                                     "id": "c38di4it52g0",
                                     "created": 1591279495908,
                                     "text": "异步",
-                                    "note": "因为 this.props 和 this.state 可能会异步更新，所以你不要依赖他们的值来更新下一个状态。\n\n例如，此代码可能会无法更新计数器：\n```js\n// Wrong\nthis.setState({\n  counter: this.state.counter + this.props.increment,\n});\n```\n要解决这个问题，可以让 setState() 接收一个函数而不是一个对象。这个函数用上一个 state 作为第一个参数，将此次更新被应用时的 props 做为第二个参数：\n```js\n// Correct\nthis.setState((state, props) => ({\n  counter: state.counter + props.increment\n}));\n```"
+                                    "note": "因为 this.props 和 this.state 可能会异步更新，所以你不要依赖他们的值来更新下一个状态。\n\n例如，此代码可能会无法更新计数器：\n```js\n// Wrong\nthis.setState({\n  counter: this.state.counter + this.props.increment,\n});\n```\n要解决这个问题，可以让 setState() 接收一个函数而不是一个对象。这个函数用上一个 state 作为第一个参数，将此次更新被应用时的 props 做为第二个参数：\n```js\n// Correct\nthis.setState((state, props) => ({\n  counter: state.counter + props.increment\n}));\n```\n\n以上是官网说明，缺乏助理解的场景。看这个，掘金博客：https://juejin.im/post/5bf1444cf265da614a3a1660"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c3p96abd0u80",
+                            "created": 1592993802973,
+                            "text": "事件处理"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c3p96d76jj40",
+                                    "created": 1592993809250,
+                                    "text": "bind"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c3p96eavzjs0",
+                                    "created": 1592993811651,
+                                    "text": "public class field（实验性）"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c3pa7x6gvvs0",
+                                    "created": 1592996752217,
+                                    "text": "箭头函数"
                                 },
                                 "children": []
                             }

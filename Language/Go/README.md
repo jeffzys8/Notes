@@ -13,3 +13,4 @@
   - gRPC之类的主题
 - [Go HTTP 源码分析](../../Web/go/goHttp.md)
   - 未完成
+- [Advanced-Go-Concurrency-Patterns](Advanced-Go-Concurrency-Patterns.md)

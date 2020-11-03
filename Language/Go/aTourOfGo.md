@@ -1262,4 +1262,4 @@ func main() {
 ```
 
 
-最后的例题: web爬虫
+最后的例题: web爬虫，[代码实现](GoTourWebCrawl.go)

@@ -257,7 +257,7 @@ go run -race naivemain.go
 
 **阻塞在发送数据信道**，假如用户在`Subscription`go程正在获取数据时调用了`Close`并且不再遍历`updates`信道，随后获取到数据的订阅go程会尝试从`updates`中发送数据，这就直接永远阻塞住了（死锁）。
 
-### 使用`select`改造`loop`函数
+### 使用`select`
 
 使用`select`来构造程序，可以将上面的问题一次性同步地解决！不用写并发的锁，不用去处理回调函数！
 > 这对于我来说是很大的程序设计颠覆。每次for循环前的状态变量又有点前端React的感觉
@@ -278,6 +278,80 @@ func (s *sub) loop() {
     }
 }
 ```
+
+下面将分几个部分介绍如何用`select`将原有的存在bug的写法逐个组合起来
+
+### 处理`Close`
+
+将原本`bool`类型的`closed`变量，改造为一个`chan chan error`类型的变量`closing`，利用它来实现 **(请求-响应)结构**，以传递订阅结束状态。在这里`loop`可以视为一个service，主程即为client。具体的过程是这样：
+- service循环地等待结束请求的到来
+- client向service发送结束请求，同时阻塞地等待service返回响应
+- service返回error(如果有的话)给client，指示订阅结束
+
+具体代码：
+```Go
+type sub struct {
+    closing chan chan error
+}
+
+func (s *sub) Close() error {
+    errc := make(chan error)
+    s.closing <- errc
+    return <-errc
+}
+```
+
+`loop`内在接收到结束请求时，返回结束消息并结束循环：
+```Go
+func (s *sub) loop() {
+    var err error // set when Fetch fails
+    for {
+        select {
+        case errc := <-s.closing:
+            errc <- err
+            close(s.updates) // tells receiver we're done
+            return
+        }
+    }
+}
+```
+
+### 处理`Fetch`
+
+> 未完待续
+
+- 需要实现nextTime
+- 需要缓存获取到的数据
+- 需要不阻塞
+
+> 仍然存在问题，如果Fetch长时间阻塞？
+
+```Go
+func (s *sub) loop() {
+    var pending []Item // appended by fetch; consumed by send
+    var next time.Time // initially January 1, year 0
+    var err error
+    for {
+        var fetchDelay time.Duration // initally 0 (no delay)
+        if now := time.Now(); next.After(now) {
+            fetchDelay = next.Sub(now)
+        }
+        startFetch := time.After(fetchDelay)
+
+        select {
+        case <-startFetch:
+            var fetched []Item
+            fetched, next, err = s.fetcher.Fetch()
+            if err != nil {
+                next = time.Now().Add(10 * time.Second)
+                break
+            }
+            pending = append(pending, fetched...)
+        }
+    }
+}
+```
+
 
 ## TODO: 完整代码走读
 

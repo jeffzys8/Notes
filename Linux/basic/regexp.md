@@ -79,7 +79,7 @@ sed 可将资料进行取代、删除、新增、选取特定行等等
     ```sh
     nl /etc/passwd | sed '2a drink tea'
     nl /etc/passwd | sed '2a drink tea or .....\
-    > drink beer' # 增加了两行
+    drink beer' # 增加了两行
     ```
 - 上方插入 `i`:
     ```sh

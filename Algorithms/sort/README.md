@@ -46,6 +46,38 @@ https://www.cnblogs.com/chengxiao/p/6104371.html
 
 > 刷道题试试
 
+```Go
+// 主要是临界条件难处理，写下来背一下
+func partition(list []int) {
+    if len(list) <= 1 {
+        return
+    }
+
+    l := 0
+    r := len(list)
+    pivot := list[l] // 以list首为轴
+    for{
+        l++
+        for list[l] < pivot{
+            if l == len(list) -1 {
+                break
+            }
+        }
+        r--
+        for pivot < list[r]{
+            if r == 0 {
+                break
+            }
+        }
+        if l >= r {
+            break
+        }
+        list[l], list[r] = list[r], list[l]
+    }
+    list[0], list[r] = list[r], list[0]
+}
+```
+
 ## 优先队列和堆排序
 
 - [堆排序(感觉讲的最好的一个了)](https://blog.csdn.net/u013384984/article/details/79496052)

@@ -2,7 +2,7 @@
 
 > focus on Linux
 
-**线程模型**
+## **线程模型**
 
 内核线程(轻量级进程)，运行在内核空间，内核调度
 用户线程，用户空间，由线程库调度
@@ -34,10 +34,101 @@ pthread_attr_t
 
 ## 线程同步
 
-posix信号量
+竞争条件; 互斥; 临界区(共享内存访问的程序片段)
 
-互斥锁
+### 忙等待互斥方案(自旋锁)
 
-条件变量
+- 屏蔽中断，避免进程切换; 有饿死风险; 多CPU系统无效; 对内核很有效(how)
+- 严格轮转法，两个线程轮流转；一个在非临界区运行得慢会阻塞另一个进入临界区
+```c
+// thread A
+while(true) {
+    while(turn != 0);
+    critical_region();
+    turn = 1;
+}
+
+// thread B
+while(true) {
+    while(turn != 1);
+    critical_region();
+    turn = 0;
+}
+```
+- Peterson解法
+```c
+#define N 2     //进程数为2
+int turn;       //现在轮到哪个进程？
+int interested[N];  //初始化置为false，即没有在临界区等待读写共享数据的
+ 
+void enter_region(int process) //进入临界区
+{
+     turn = process;
+     int other = 1 - turn; //另一个进程
+     interested[turn] = true;
+     while(turn == process && interested[other] == true)
+                ; //一直循环，直到other进程退出临界区
+}
+ 
+void leave_region(int process)
+{
+     interested[process] = false;
+}
+```
+- TSL; 测试并加锁(锁总线，和屏蔽中断相比对多cpu有效) //TODO 
+- XCSG; // TODO
+
+
+### 睡眠与唤醒
+
+- sleep: 阻塞某个进程的系统调用 (UNIX中为`pause(void)`信号)
+- wakeup(pid): 唤醒某个进程 (UNIX中可为`alarm(int seconds)`信号)
+
+生产者消费者(有界缓冲区)问题
+> 感觉逻辑不完备啊 《现代操作系统》 page73
+
+
+### 信号量、互斥量
+
+PV操作
+
+互斥量 = 二元信号量
+```c
+int pthread_mutex_lock(pthread_mutex_t *mutex);
+int pthread_mutex_trylock(pthread_mutex_t *mutex); // 非阻塞
+int pthread_mutex_unlock(pthread_mutex_t *mutex);
+```
+
+TSL很好实现互斥量。在获取锁失败时直接阻塞并交给其他进程调度。在下次轮到它时再次检测锁可不可用。
+
+```c
+int pthread_mutex_timedlock()
+```
+
+### 读写锁
+
+读模式加锁、写模式加锁、不加锁
+```c
+int pthread_rwlock_init(); // 必须初始化
+int pthread_rwlock_destroy(); // 使用完必须销毁
+
+int pthread_rwlock_rdlock();
+int pthread_rwlock_wrlock();
+int pthread_rwlock_unlock();
+```
+
+### 条件变量
+
+> to be continued;
+
+### 屏障
+> to be continued;
 
 ## 死锁
+> to be continued;
+
+哲学家问题
+
+死锁四个条件
+
+银行家算法

@@ -336,6 +336,9 @@ func socket(ctx context.Context, net string, family, sotype, proto int, ipv6only
 
 > to be continued.
 
+---
+## 未整理
+
 > 疑问，已经用go程去处理每个Accept到的连接socket了，为什么还要epoll，epoll在这里难道不是只监控 listen Socket就够了吗？(完全可以自己动手试一下看看有没有问题呀~) 
 
 > 不知道我这样理解对不对：go程不是线程！如果单纯把accept到的连接分给go程去调系统调用读写的话，还是会阻塞起来(如果是非阻塞调用的话就会导致不停空转，只要轮到这个时间片就浪费资源)，这样就和多线程去read/write没区别了。所以更好的做法是，统一使用类似epoll的方式去管理**监听socket+所有连接socket**，这样go程再去单独调用Accept的时候其实不会让线程阻塞在IO上了，
@@ -343,6 +346,41 @@ func socket(ctx context.Context, net string, family, sotype, proto int, ipv6only
 asynchronous I/O, network poller, laddr raddr, poll.CloseFunc, poll.fd, 引用计数
 
 netpoll_epoll.go
+
+`net.(*netFD).listenStream` 
+
+```Go
+func setDefaultListenerSockopts(s int) error {
+	// Allow reuse of recently-used addresses.
+	return os.NewSyscallError("setsockopt", syscall.SetsockoptInt(s, syscall.SOL_SOCKET, syscall.SO_REUSEADDR, 1))
+}
+```
+
+`internal/poll.(*FD).Init`
+
+```Go
+// Set pollable to true if fd should be managed by runtime netpoll.
+```
+
+`internal/poll.pollDesc` 和底层epoll, kqueue交互的核心结构
+
+`internal/poll.(*pollDesc).init`
+
+```Go
+serverInit.Do(runtime_pollServerInit)
+ctx, errno := runtime_pollOpen(uintptr(fd.Sysfd))
+```
+可见是同一程序统一的poller
+
+`internal/poll.runtime_pollServerXX()` 怎么runtime到 `runtime.poll_runtime_pollServerInit`的
+
+```Go
+//go:linkname poll_runtime_pollServerInit internal/poll.runtime_pollServerInit
+func poll_runtime_pollServerInit() {
+	netpollGenericInit()
+}
+```
+这里又是如何指到kqueue/epoll的
 
 
 # `Accept`

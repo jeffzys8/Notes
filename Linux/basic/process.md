@@ -62,12 +62,17 @@ F S UID PID PPID C PRI NI ADDR SZ WCHAN TTY TIME CMD
 - `F` process flags，说明这个进程的总结权限，常见号码有：
   - 4 表示此进程的权限为root ；
   - 1 表示此子进程仅进行复制(fork)而没有实际执行(exec)。
-- `S` 代表这个进程的状态(STAT)，主要的状态有：
-  - R (Running)：该程式正在运作中；
-  - S (Sleep)：该程式目前正在睡眠状态(idle)，但可以被唤醒(signal)。
-  - D：不可被唤醒的睡眠状态，通常这支程式可能在等待I/O 的情况(ex>列印)
-  - T：停止状态(stop)，可能是在工作控制(背景暂停)或除错(traced) 状态；
+- `S` **代表这个进程的状态(STAT)**，主要的状态有：
+  - R (Running)：该进程处于就绪(等待调度)或运行状态
+  - S (Sleep)：该进程目前正在睡眠状态(idle)，但可以被唤醒(signal)。
+  - D：不可被唤醒的睡眠状态
+    - 进程不响应系统异步信号
+    - 通常这支进程可能在等待I/O 的情况(比如等待打印机)
+    - > 使用`kill`也不行？
+  - T：停止状态(stop)，进程收到停止信号后停止运行。可能是在工作控制(背景暂停)或除错(traced) 状态；
   - Z (Zombie)：僵尸状态，进程已经终止但却无法被移除至内存外。（异常？）
+    -  直到父进程调用`wait4()`系统函数后将进程释放
+    -  > TODO: Zombie进程和野进程各自到底怎么出现
 - `UID/PID/PPID`
 - `C` CPU 使用率，单位为百分比；
 - `PRI/NI` Priority/Nice的缩写，代表此进程被CPU所执行的优先顺序，数值越小代表该进程越快被CPU执行。
@@ -75,6 +80,7 @@ F S UID PID PPID C PRI NI ADDR SZ WCHAN TTY TIME CMD
   - ADDR 是kernel function，指出该进程在内存的哪个部分，如果是个running 的进程，一般就会显示『 - 』 
   - SZ 代表此进程用掉多少内存
   - WCHAN 表示目前进程是否运作中，同样的， 若为-表示正在运作中。
+  - > 这部分是什么鬼
 - `TTY` 该process 是在那个终端机上面运作，若与终端机无关则显示?，另外， tty1-tty6 是本机上面的登入者程序，若为pts/0 等等的，则表示为由网路连接进主机的程序。
 - `TIME` 使用掉的CPU 时间，注意，是此进程实际花费CPU 运作的时间，而不是系统时间；
 - `CMD` 进程command
@@ -82,12 +88,21 @@ F S UID PID PPID C PRI NI ADDR SZ WCHAN TTY TIME CMD
 ### `ps aux`
 
 对系统资源看的更全一点：
-- `%CPU` 该process 使用掉的CPU 资源百分比；
-- `%MEM` 该process 所占用的实体记忆体百分比；
-- `VSZ` 该process 使用掉的虚拟记忆体量(Kbytes)
+- `%CPU` 该process 占用的CPU 资源百分比；
+- `%MEM` 该process 占用的物理内存百分比；
+- `VSZ` 该process 使用的虚拟内存(Kbytes)
 - `RSS` 该process 占用的固定的记忆体量(Kbytes)
+- `STAT`的**小尾巴**
+  - `<` 高优先级
+  - `N` 低优先级
+  - `L` 有些页被锁进内存
+  - `s` 包含子进程
+  - `+` 位于后台的进程组；
+  - `l` 多线程，克隆线程 multi-threaded (using CLONE_THREAD, like NPTL pthreads do)
 
 ## top - 动态观察程序的变化
+
+> [内存耗用概念：VSS/RSS/PSS/USS](https://blog.csdn.net/edmond999/article/details/79637433) 感觉主要是手机相关
 
 ```sh
 [root@study ~]# top [-d数字] | top [-bnp] 

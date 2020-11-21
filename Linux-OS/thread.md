@@ -105,6 +105,8 @@ void leave_region(int process)
 
 ### 信号量、互斥量
 
+信号量是个资源使用权限的计数器。
+
 PV操作
 
 互斥量 = 二元信号量

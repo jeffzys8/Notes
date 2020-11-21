@@ -5,7 +5,7 @@
 |时间|说明|
 |--|--|
 |2018/11/17|first commit|
-|2020/11/14|- 基于新版本的go src作内容修正<br>-
+|2020/11/14|- 基于新版本的src作内容修正<br>- 深入`Listen`调用
 
 # 概述
 
@@ -250,7 +250,7 @@ l, err = sl.listenTCP(ctx, la)
 
 另外值得注意的一个点是，在`(*sysListener).listenTCP`以前的函数都是**平台无关**的，也即所有平台都是调用同样的代码。但是从`(*sysListener).listenTCP`开始，就是**平台相关**的了，在MacOS中可以观察到它位于 `net/tcpsock_posix.go`，而在Windows可以观察到位于 `net/tcpsock_plan9.go`
 
-> 这里又有新的问题：**在MacOS中我在源码内可以看到两个平台的`(*sysListener).listenTCP`实现，但用VSCode走读的时候都能准确地指向对应平台的代码，编译器(和代码提示器)怎么知道我需要编译哪份代码的呢?** 这个我暂时没有找到答案。
+> 这里又有新的问题：**在MacOS中我在源码内可以看到两个平台的`(*sysListener).listenTCP`实现，但用VSCode走读的时候都能准确地指向对应平台的代码，编译器(和代码提示器)怎么知道我需要编译哪份代码的呢?** 这个我暂时没有找到答案。感觉这个会和Go的runtime有关系，而VSCode的peeker辅助了一些runtime的功能。这个后面再去回看。
 
 <!-- TODO: 找到这里平台相关的实现方法 -->
 
@@ -347,6 +347,19 @@ asynchronous I/O, network poller, laddr raddr, poll.CloseFunc, poll.fd, 引用�
 
 netpoll_epoll.go
 
+`net.sysSocket`
+
+```GO
+syscall.ForkLock.RLock()
+socketFunc(family, sotype, proto)
+syscall.CloseOnExec(s)
+syscall.ForkLock.RUnlock()
+syscall.SetNonblock(s, true);
+poll.CloseFunc(s) // when err, netpoll not yet monitoring
+```
+- [close-on-exec](https://blog.csdn.net/justmeloo/article/details/40184039)
+- socket非阻塞
+
 `net.(*netFD).listenStream` 
 
 ```Go
@@ -355,6 +368,8 @@ func setDefaultListenerSockopts(s int) error {
 	return os.NewSyscallError("setsockopt", syscall.SetsockoptInt(s, syscall.SOL_SOCKET, syscall.SO_REUSEADDR, 1))
 }
 ```
+
+- [SO_REUSEADDR和SO_REUSEPORT作用](https://www.jianshu.com/p/141aa1c41f15)
 
 `internal/poll.(*FD).Init`
 

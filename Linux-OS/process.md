@@ -42,7 +42,7 @@ pid = 1, `init`进程，`/sbin/init`或`/etc/init`，负责在自举内核后启
 
 执行其他程序，替换当前进程映像, 当前进程的正文段、数据段、堆段和栈段被替换
 
-exec不会关闭原程序打开的fd
+exec不会关闭原程序打开的fd; [close-on-exec](https://blog.csdn.net/justmeloo/article/details/40184039)
 
 copy-on-write(硬件支持)
 

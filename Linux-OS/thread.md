@@ -15,11 +15,6 @@
 
 Linux线程库，采用1:1模型（不同进程的线程能共享互斥锁这么厉害~）
 
-pthread_create; pthread_exit; pthread_join; pthread_cancel;
-pthread_attr_t
-
-> 插一句：需要复习一下有限状态机，提了好多次了
-
 线程的TCB内容(不确定是不是叫TCB)：
 - 程序计数器
 - 寄存器
@@ -32,7 +27,27 @@ pthread_attr_t
 - 如果复制了，父进程某个线程的read是否要让子进程同样的线程一起阻塞
 - 地址空间增大时发生了线程切换，然后新运行线程也请求了扩大空间?
 
+TODO:
+- 进程持有，线程间共享的内容：地址空间、进程堆栈、fd、正文段
+- 线程私有的内容：私运行栈、私寄存器、调度ni、信号屏蔽字(?)
+
+## 线程控制
+
+pthread_create; 
+
+pthread_exit; 
+
+pthread_join; 
+
+pthread_cancel; 请求取消同一进程中的其他线程(被请求的线程可以选择忽略/控制如何被取消)
+
+pthread_attr_t
+
 ## 线程同步
+
+> 涉及一些从理论书上摘下来的原理实现，但还是处于囫囵吞枣的阶段
+
+TODO: 根据理论和实践完整补充同步的原理和实现内容
 
 竞争条件; 互斥; 临界区(共享内存访问的程序片段)
 
@@ -117,12 +132,31 @@ int pthread_rwlock_wrlock();
 int pthread_rwlock_unlock();
 ```
 
+同样也有带超时的读写锁，此处略
+
 ### 条件变量
 
-> to be continued;
+给多个线程提供一个会和的场所，**需要和互斥量同时使用以消除data race**
+```c
+pthread_cond_init()
+pthread_cond_destroy()
+
+pthread_cond_wait(&cond, &mtx);
+pthread_cond_timedwait()
+
+pthread_cond_signal()
+pthread_cond_broadcast()
+```
 
 ### 屏障
-> to be continued;
+
+每个线程等待，直到所有合作线程都到达某一点
+
+可以说`pthread_join`是两个线程的一种屏障
+
+```c
+pthread_barrier_wait()
+```
 
 ## 死锁
 > to be continued;

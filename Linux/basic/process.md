@@ -1,4 +1,4 @@
-# 进程管理
+# Linux进程管理
 
 程序以文件形式存在硬盘等存储设备中。执行程序的时候，系统会根据执行的用户分配 用户/组 的权限，分配 PID，然后将进程载入内存成为**进程**。
 
@@ -17,6 +17,7 @@ crontab，由crontd守护进程扫描`/etc/crontab`执行
   - 指令完成退出后输出：`[1]+ Done tar -zpcf /tmp/etc.tar.gz /etc`
 - `[Ctrl+Z]` 暂停当前的工作并回到前景
   - 同样会输出job number
+  - > TODO: 输出的是什么信号？
 - `jobs` 观察目前的背景工作状态
   - `l` 列出PID
   - `r` 仅列出背景中running的
@@ -25,6 +26,7 @@ crontab，由crontd守护进程扫描`/etc/crontab`执行
 - `fg %jobnumber` 从栈顶取任务来前台跑
   - 不加jobn从栈顶取(`+`)
 - `bg` 栈里拉去背景跑
+  - > TODO: 不在背景里怎么执行的bg指令？
 - `kill -signal %jobnumber` 传信号（比如杀掉）
   - `-9` 强制杀掉（最常用）
   - `-l` 列出可用信号
@@ -32,6 +34,7 @@ crontab，由crontd守护进程扫描`/etc/crontab`执行
   - `-1` reload?
   - `-2` Ctrl+Z
   - kill还有很多其他的用处, `man -7 kill`
+  - > TODO: 需要好好归纳
 - **背景进程 != 系统背景，就是终端背景，如果想退出还运行的话要用`nohup`**
   - `nohup [指令与参数] &` 放到背景去
   - 输出到 `nohup.out`
@@ -69,7 +72,8 @@ F S UID PID PPID C PRI NI ADDR SZ WCHAN TTY TIME CMD
     - 进程不响应系统异步信号
     - 通常这支进程可能在等待I/O 的情况(比如等待打印机)
     - > 使用`kill`也不行？
-  - T：停止状态(stop)，进程收到停止信号后停止运行。可能是在工作控制(背景暂停)或除错(traced) 状态；
+  - T：停止状态(stop)，进程收到停止信号后停止运行。可能是在工作控制(背景暂停)或跟踪(traced) 状态；
+    - > 跟踪状态应该是gdb，后面用到可以查证一下
   - Z (Zombie)：僵尸状态，进程已经终止但却无法被移除至内存外。（异常？）
     -  直到父进程调用`wait4()`系统函数后将进程释放
     -  > TODO: Zombie进程和野进程各自到底怎么出现
@@ -95,14 +99,18 @@ F S UID PID PPID C PRI NI ADDR SZ WCHAN TTY TIME CMD
 - `STAT`的**小尾巴**
   - `<` 高优先级
   - `N` 低优先级
-  - `L` 有些页被锁进内存
+  - `L` 有些页被锁进内存 
+    - > ??
   - `s` 包含子进程
   - `+` 位于后台的进程组；
   - `l` 多线程，克隆线程 multi-threaded (using CLONE_THREAD, like NPTL pthreads do)
 
+
+> [内存耗用概念：VSS/RSS/PSS/USS](https://blog.csdn.net/edmond999/article/details/79637433) 我在wsl上查不到相关指令，不知道是不是只和手机相关
+
+
 ## top - 动态观察程序的变化
 
-> [内存耗用概念：VSS/RSS/PSS/USS](https://blog.csdn.net/edmond999/article/details/79637433) 感觉主要是手机相关
 
 ```sh
 [root@study ~]# top [-d数字] | top [-bnp] 
@@ -111,14 +119,14 @@ F S UID PID PPID C PRI NI ADDR SZ WCHAN TTY TIME CMD
 -b ：以批次的方式执行top ，还有更多的参数可以使用喔！
       通常会搭配资料流重导向来将批次的结果输出成为档案。
 -n ：与-b 搭配，意义是，需要进行几次top 的输出结果。
--p ：指定某些个PID 来进行观察监测而已。
+-p ：指定某些个PID 来进行观察
 在top 执行过程当中可以使用的按键指令：
 	? ：显示在top 当中可以输入的按键指令；
 	P ：以CPU 的使用资源排序显示；
 	M ：以Memory 的使用资源排序显示；
-	N ：以PID 来排序喔！
+	N ：以PID 来排序
 	T ：由该Process 使用的CPU 时间累积(TIME+) 排序。
-	k ：给予某个PID 一个讯号(signal)
+	k ：给予某个PID 一个信号(signal)
 	r ：给予某个PID 重新制订一个nice 值。
 	q ：离开top 软体的按键。
 ```
@@ -147,7 +155,7 @@ KiB Swap: 1048572 total, 1048572 free,         0 used . 2318680 avail Mem
 - 系统在1, 5, 15分钟的平均工作负载。代表的是1, 5, 15分钟，系统平均要负责运作几个程序(工作)的意思。若高于1要注意系统进程是否太多。
 
 第二行(Tasks...):
-- 显示的是目前程序的总量与各个状态(running, sleeping, stopped, zombie)下的进程。比较需要注意的是最后的zombie 那个数值，如果不是0 ！好好看看到底是那个process变zombie了。
+- 显示的是目前进程的总量与各个状态(running, sleeping, stopped, zombie)下的进程。比较需要注意的是最后的zombie 那个数值，如果不是0 ！好好看看到底是那个process变zombie了。
 
 第三行(%Cpus...)：
 - 显示的是CPU 的整体负载，每个项目可使用? 查阅
@@ -158,7 +166,9 @@ KiB Swap: 1048572 total, 1048572 free,         0 used . 2318680 avail Mem
   - 0.0% wa — IO等待占用CPU的百分比
   - 0.0% hi — 硬中断（Hardware IRQ）占用CPU的百分比
   - 0.2% si — 软中断（Software Interrupts）占用CPU的百分比
-- 需要特别注意的是 `wa` 项目，那个项目代表的是`I/O wait`， 通常你的系统会变慢都是I/O 产生的问题比较大！因此这里得要注意这个项目耗用CPU 的资源喔！另外，如果是多核心的设备，可以按下数字键『1』来切换成不同CPU 的负载率。
+  - > 还有一个st 是什么
+- 需要特别注意的是 `wa` 项目，代表的是`I/O wait`， 通常系统会变慢都是I/O 产生的问题比较大。因此这里得要注意这个项目耗用CPU的资源。
+- 如果是多核CPU，可以按下数字键『1』来切换成查看不同CPU 的负载。
 
 第四行与第五行：
 - 表示目前的物理内存与虚拟内存(`Mem/Swap`) 的使用情况。再次重申，要注意的是swap 的使用量要尽量的少！如果swap 被用的很大量，表示系统的实体记忆体实在不足！

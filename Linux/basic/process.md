@@ -206,7 +206,7 @@ Swap:
 192772k free    空闲交换区总量
 123988k cached    缓冲的交换区总量,内存中的内容被换出到交换区，而后又被换入到内存，但使用过的交换区尚未被覆盖，该数值即为这些内容已存在于内存中的交换区的大小,相应的内存再次被换出时可不必再对交换区写入。
 
-**可用内存数：第四行的free + 第四行的buffers + 第五行的cached**
+**可用内存数：第四行的free + 第四行的buffers + 第五行的cached**(第五行哪来的cached..说实话这得看Linux版本吧)
 
 当你读写文件的时候，Linux内核为了提高读写性能与速度，会将文件在内存中进行缓存，这部分内存就是Cache Memory(缓存内存)。即使你的程序运行结束后，Cache Memory也不会自动释放。这就会导致你在Linux系统中程序频繁读写文件后，你会发现可用物理内存会很少。
 
@@ -263,14 +263,37 @@ netstat -[atunlp]
 -a ：将目前系统上所有的连线、监听、Socket 资料都列出来
 -t ：列出tcp 网路封包的资料
 -u ：列出udp 网路封包的资料
--n ：不以程序的服务名称，以端口号(port number) 来显示；
+-n ：不以程序的服务名称，以IP+port来显示；
 -l ：列出目前正在网路监听(listen) 的服务；
 -p ：列出该网路服务的程序PID 
 ```
+包含两部分内容：网络的连接和传统UNIX socket(??)
 
-包括了两部分信息：
-- Active Internet connections，网络连接
-- Active UNIX domain sockets，进程间socket通信
+**网络连接字段**
+Active Internet connections (servers and established)
+- Proto: 协议(主要是TCP/UDP)
+- Recv-Q: 收到的总bytes
+- Send-Q: 发送并获得ACK的总Bytes
+- LocalAddress: 本地IP-port
+- ForeignAddress: 远端IP-port
+- State: 一般是ESTABLISHED及LISTEN
+  - 还有SYN_SENT, SYN_RECV, FIN_WAIT1, FIN_WAIT2, TIME_WAIT, LISTEN
+  - > TCP状态转移方程参考UNP page35
+
+`netstat -tunlp` 比较常用
+
+只有root可以启动小于1024以下的port
+
+**Unix socket字段**
+Active UNIX domain sockets (servers and established)
+比如X Window也是用socket在本地进行通信
+
+- Proto: unix
+- RefCnt: 连接到此socket的程序数量(?难道不是只有listen socket 会这样)
+- Flags: ?
+- Type: STREAM/DGRAM
+- State: 同上面的State
+- Path: ?
 
 ## vmstat
 

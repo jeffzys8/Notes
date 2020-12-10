@@ -4,6 +4,7 @@
 
 - [如何使用Go编程 - Go代码组织和测试](https://go-zh.org/doc/code.html)
 - [基本语法 - A Tour Of Go 笔记](aTourOfGo.md)
+- [Go圣经](https://books.studygolang.com/gopl-zh/)
 - [Go by Example](https://books.studygolang.com/gobyexample/)
 - [Effective Go](https://go-zh.org/doc/effective_go.html)
 

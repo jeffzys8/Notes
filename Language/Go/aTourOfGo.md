@@ -1,4 +1,4 @@
-- [HelloWorld](#helloworld)
+- [Go基础语法](#go基础语法)
 - [基础](#基础)
 	- [包](#包)
 	- [函数](#函数)
@@ -17,7 +17,9 @@
 	- [goroutine](#goroutine)
 	- [channel](#channel)
 
-# HelloWorld
+# Go基础语法
+
+HelloWorld
 
 ```Go
 package main
@@ -57,11 +59,22 @@ import "fmt"
 import "math"
 ```
 
-包中大写为“导出”
+- 包中大写为“导出”
 
 ```Go
 fmt.Println(math.pi) //报错
 fmt.Println(math.Pi) //正确
+```
+
+- 导入包而不调用包方法(会执行包内的`init()`函数)
+- 同个包内的多个`init()`不保证顺序
+
+```Go
+import (
+	_ "beegotest/routers"
+
+	"github.com/astaxie/beego"
+)
 ```
 
 ## 函数
@@ -381,6 +394,13 @@ p := &v
 (*p).X = 1e9
 p.X = 1e9
 fmt.Println(v)
+```
+
+嵌入(继承)
+```Go
+type MainController struct {
+        web.Controller
+}
 ```
 
 ## 数组和切片

@@ -9,30 +9,52 @@
 以32-bit CPU为例解释字节序, 累加器每次能装载一个32-bit int
 - 6(十进制) --> b0....0110(32-bit二进制)
 - 大端
-
 ```
---- (high addr mem)
+------------- (high addr mem)
 0
 0
 ...more 0...
 1
 1
 0
---- (low addr mem)
+------------- (low addr mem)
+```
+- **需留意大端虽然高位在低地址，但每字节(8-bit)里还是高位在高地址**，直接的现象就是从按位的地址空间来看这个数**不连续**，以`127.0.0.1`的整数表示为例：
+```
+for 127.0.0.1:
+------------- (high addr mem)
+0                                               1
+0                   --> for this 8 byte, not    0
+...more 0...                                    ...more 0...
+1                                               0
+-------------
+0
+...more 0...
+0
+-------------
+0
+...more 0...
+0
+-------------
+0                                               1
+1                   --> for this 8 byte, not    ...more 1...
+...more 1...                                    1
+1                                               0
+------------- (low addr mem)
 ```
 - 小端
 ```
---- (high addr mem)
+------------- (high addr mem)
 0
 1
 1
 ...more 0...
 0
 0
---- (low addr mem)
+------------- (low addr mem)
 ```
 
-[src 机器字节序判断](../src/5-1_byteorder.c)
+[src 机器字节序判断](./5-1_byteorder.c)
 
 Linux 提供4个函数完成两种字节序的转换，`htonl`, `htons`, `ntohl`, `ntohs`, **任何格式化的数据通过网络传输时都应使用这些函数转换字节序**
 
@@ -152,10 +174,12 @@ TODO: 代码清单5-2奇怪的调用方式，为什么是 `inet_ntoa("1.2.3.4");
 int inet_pton (int af, const char* cp, void* buf);
 const char* inet_ntop (int af, const void* cp, char* buf, socklen_t len);
 ```
-- `inet_pton` 用于将点分十进制的IPv4 / 十六进制字符串(?)表示的字符串 `cp` 转为对应的整数 `dst`，注意到这里存结果用的是`void*`，成功返回1，失败返回0并设置`errno`\
+- `inet_pton` 用于将点分十进制的IPv4 / 十六进制字符串(?)表示的字符串 `cp` 转为对应的整数 `dst`，注意到这里存结果用的是`void*`，成功返回1，失败返回0并设置`errno`
 - `inet_ntop` 则是数转字符串，传入数据和上面类似用了个`void*`，同时需要用`len`指定保存字符串结果的`buf`的大小
+- 留意到`inet_ntop`返回了一个`const char*`, 该指针仍指向`buf`
 
-TODO: try them
+[src 地址转换函数](./5-1_addr_translate.c)
+
 
 TODO: Linux errno, what & how APUE1.7
 

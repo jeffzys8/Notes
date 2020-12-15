@@ -65,13 +65,13 @@ int main()
     int r2 = inet_pton(AF_INET6, "1000:2000::f000", &dstv6_2);
     printf("success: %d, %d\n", r1, r2);
     printf("dstv6_1(0001:0002::000e): ");
-    for (int i = 0; i < sizeof(dstv6_1.__in6_u.__u6_addr8); i++) {
-        printf("%d ", dstv6_1.__in6_u.__u6_addr8[i]);
+    for (int i = 0; i < sizeof(dstv6_1.__in6_u.__u6_addr16); i++) {
+        printf("%d ", dstv6_1.__in6_u.__u6_addr16[i]);
     }
     printf("\n");
     printf("dstv6_2(1000:2000::f000): ");
-    for (int i = 0; i < sizeof(dstv6_2.__in6_u.__u6_addr8); i++) {
-        printf("%d ", dstv6_2.__in6_u.__u6_addr8[i]);
+    for (int i = 0; i < sizeof(dstv6_2.__in6_u.__u6_addr16); i++) {
+        printf("%d ", dstv6_2.__in6_u.__u6_addr16[i]);
     }
     printf("\n");
     printf("----------------------------------\n");

@@ -166,8 +166,6 @@ char* inet_ntoa (struct in_addr in);
 - `inet_aton` 功能和 `inet_addr` 一样，但会将结果存到`inp`指向的地址结构中，并以1(true)或0(false)返回执行状态
 - `inet_ntoa` 即反过来，返回一个`char*`字符串，但需要注意，**该函数内部用一个静态变量存储转化结果，因此是不可重入的**
 
-TODO: 代码清单5-2奇怪的调用方式，为什么是 `inet_ntoa("1.2.3.4");`, 传入了个字符串？
-
 上面的函数只能IPv4使用，下面的两个函数是IPv4和IPv6通用的(最最最常用):
 ```c
 #include <arpa/inet.h>

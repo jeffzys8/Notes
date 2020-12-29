@@ -63,7 +63,7 @@ int listen (int sockfd, int backlog);
 - 监听队列中完整连接的上限通常比`backlog`值略大?? (含义不明的模糊因子)
 
 
-TODO: 示例listen程序
+TODO: 示例listen+backlog程序
 
 ## `accept`
 

@@ -52,8 +52,8 @@ int main()
     memset(v4str1, 0, sizeof(v4str1));
     memset(v4str2, 0, sizeof(v4str1));
     printf("str set to 0: %s, %s\n", v4str1, v4str2);
-    const char* a = inet_ntop(AF_INET, &dst1, v4str1, sizeof(v4str1));
-    const char* b = inet_ntop(AF_INET, &dst2, v4str2, sizeof(v4str2));
+    const char* a = inet_ntop(AF_INET, &dst1, (char*)v4str1, sizeof(v4str1));
+    const char* b = inet_ntop(AF_INET, &dst2, (char*)v4str2, sizeof(v4str2));
     printf("after: %s, %s, %s, %s\n", v4str1, v4str2, a, b);
     printf("is return and buf same addr: %p vs %p, %p vs %p\n", a, v4str1, b, v4str2);
     printf("----------------------------------\n");
@@ -81,8 +81,8 @@ int main()
     unsigned char v6str1[128], v6str2[128];
     memset(v6str1, 0, sizeof(v6str1));
     memset(v6str2, 0, sizeof(v6str2));
-    inet_ntop(AF_INET6, &dstv6_1, v6str1, sizeof(v6str1));
-    inet_ntop(AF_INET6, &dstv6_2, v6str2, sizeof(v6str2));
+    inet_ntop(AF_INET6, &dstv6_1, (char*)v6str1, sizeof(v6str1));
+    inet_ntop(AF_INET6, &dstv6_2, (char*)v6str2, sizeof(v6str2));
     printf("result: %s, %s\n", v6str1, v6str2);
     return 0;
 }

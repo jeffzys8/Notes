@@ -34,11 +34,11 @@ int main(int argc, char *argv[])
     assert(ret != -1);
 
     /* stop 20 sec to wait for mannual disconnection operation finish */
-    // sleep(20); /* sleep 的代码可以研究一下，如何使用SIGALRM并避免用户信号的影响 */
+    sleep(20); /* sleep 的代码可以研究一下，如何使用SIGALRM并避免用户信号的影响 */
 
     sockaddr_in client;
     socklen_t client_addrlen = sizeof(client);
-    for (int i = 0; i < 2; ++i) /* 试验能否在TIME_WAIT状态下重新进行一个连接 */
+    for (int i = 0; i < 5; ++i) /* 试验能否在TIME_WAIT状态下重新进行一个同IP同端口的连接 */
     {
         int connfd = accept(sock, (sockaddr *)&client, &client_addrlen);
         if (connfd < 0)
@@ -52,7 +52,6 @@ int main(int argc, char *argv[])
             close(connfd);
         }
     }
-    /* 试验在TIME_WAIT状态下还能不能接受一个新的连接 */
     close(sock);
     return 0;
 }

@@ -7,8 +7,6 @@
 
 # 未整理
 
-
-
 recv; send; /TCP
 
 > read, write 同样可以用于socket, 但recv和send增加了flags进行额外控制

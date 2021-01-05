@@ -186,3 +186,12 @@ TODO: const void *__restrict; [MS doc](https://docs.microsoft.com/en-us/cpp/cpp/
 TODO: char*, const char*
 
 TODO: extern
+
+## 获取socket的绑定地址
+
+```c
+#include <sys/socket.h>
+
+int getsockname(int sockfd, struct sockaddr *addr。 socklen_t *addrlen);
+int getpeername(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+```

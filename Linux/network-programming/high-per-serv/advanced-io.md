@@ -1,5 +1,10 @@
 # 高级I/O
 
+讨论几个和网络编程相关的高级I/O函数，分为三类
+- 用于创建描述符: `pipe`, `dup`, `dup2`
+- 用于读写数据: `readv`, `writev`, `sendflie`, `mmap`, `munmap`, `splice`, `tee`
+- 用于控制I/O行为和属性: `fcntl`
+
 pipe; 创建管道实现进程间通信;`fd[2]`; 单向, 双工需要两个pipe
 
 dup, dup2; 重定向

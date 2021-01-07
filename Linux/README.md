@@ -2,8 +2,6 @@
 
 从现在开始要好好整理Linux的笔记啦，像上课一样每天固定地学一些记下来慢慢会有很大的进步的。
 
-[学习路线](roadmap.md) TODO
-
 <hr>
 
 ## Linux基础知识
@@ -58,9 +56,10 @@
 
 <hr>
 
-## Unix网络编程(UNP)
+## Linux网络编程
 
-- [note1](unp/note1.md)
+- [Linux高性能服务器编程](network-pro/high/../../network-programming/high-per-serv/README.md)
+- [UNP note1](unp/note1.md)
 
 <hr>
 

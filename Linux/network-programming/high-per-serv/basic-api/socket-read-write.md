@@ -65,7 +65,7 @@ struct iovec
 };
 ```
 
-- `msg_name` 和 `msg_namelen` 分别指向 socket_addr结构地址和对应结构长度
-- `msg_iov` 指向读取或发送的数据，这是一个`iovec`类型数组指针；因此对`sendmsg`是将分散内存集中发送，即“集中写”(gather write)，对应的`recvmsg`是“分散读”(scatter read)
+- `msg_name` 和 `msg_namelen` 分别指向 socket_addr结构地址和对应结构长度; 对于TCP而言需要将`msg_name`设为NULL
+- `msg_iov` 指向读取或发送的数据，这是一个`iovec`类型数组指针；因此对`sendmsg`是将分散内存集中发送，即“集中写”(gather write)，对应的`recvmsg`是“分散读”(scatter read); `msg_iovlen`对应数组长度
 - TODO: `msg_control` & `msg_controllen` 辅助数据，chap13讨论
 - `msg_flags` 由外层flags设置，无需自己设置

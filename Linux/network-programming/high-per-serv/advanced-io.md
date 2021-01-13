@@ -49,9 +49,22 @@ close(connfd);
 
 上述程序首先关闭了标准输出(值为1)的fd，于是`dup`就会选择最小的可用fd，即为1; `printf`调用实际上是将字符串输出到值为1的FD，因此此处会将`abcd\n`输出到`connfd`对应的网络连接中
 
-- TODO: 疑问: 第二个`close`将`connfd`的引用计数-1，那`dup`的连接会不会关闭? 进而这个网络连接会不会关闭?
+- TODO: 疑问: 第二个`close`将`connfd`所指向连接的引用计数-1，那`dup`的连接会不会关闭? 进而这个网络连接会不会关闭?
 - TODO: 疑问: 有没有办法将关闭的STDOUT再开回来，或者说STDOUT的初始化流程是怎么样的
-- TODO: 单就创建一个sock_addr --> bind --> listen 这一过程重复代码很多，可以写个库封装一下
+
+> TODO: 单就创建一个sock_addr --> bind --> listen 这一过程重复代码很多，可以写个库封装一下
+
+# readv 和 writev
+
+相当于简化版的 `sendmsg` 和 `recvmsg` (见[socket读写](basic-api/socket-read-write.md))
+
+```c
+#include <sys/uio.h>
+ssize_t readv(int fd, const struct iovec *iov, int iovcnt);
+ssize_t writev(int fd, const struct iovec *iov, int iovcnt);
+```
+
+[HTTP-response示例程序(using writev)](6-2_web_response.cpp)
 
 ## 未整理
 

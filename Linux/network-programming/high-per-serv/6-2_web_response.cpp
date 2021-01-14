@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
             iv[1].iov_len = file_stat.st_size;
             ret = writev(connfd, iv, 2); /* 两段空间使用writev */
             /* 测试代码 */
-            printf("sizeof(iv): %lu\n", sizeof(iv));
+            printf("sizeof(iv): %lu\n", sizeof(iv)); /* 对数组的sizeof结果不是地址大小，而是实际占用的空间 */
             /* 测试代码结束 */   
         }
         else

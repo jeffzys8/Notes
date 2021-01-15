@@ -75,8 +75,9 @@ ssize_t writev(int fd, const struct iovec *iov, int iovcnt);
 ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count);
 ```
 
-- `out_fd` 必须是支持`mmap`操作的fd，即指向真实的文件(不能是pipe、socket); `in_fd` 必须是一个socket
+- `out_fd` 必须是支持`mmap`操作的fd，即指向真实的文件(不能是pipe、socket); `in_fd` 必须是一个socket (从Linux2.6.33开始已经可以是任意fd了)
 - `offset` 指定读文件的偏移量，置为`NULL`表示从头; `count` 指定读取的字节数
+- 返回成功传输的字节数
 
 TODO: 用`sendfile`改造上面的6-2程序
 
@@ -116,19 +117,58 @@ int munmap(void *addr, size_t length);
 
 和`sendfile`一样也是零拷贝操作，不过`splice`用于从管道导出数据或将数据发送到管道，也即input和output至少一个得是管道
 
-> TODO: 如果有offset, 那没被消费的数据会怎么样，fd的偏移量还保持原位的话，再`read`会怎么样?
+```c
+#include <fcntl.h>
+ssize_t splice(int fd_in, loff_t *off_in, int fd_out,
+        loff_t *off_out, size_t len, unsigned int flags);
+```
+
+- 如果`fd`(`fd_in`或`fd_out`, 下同)为pipe, 则对应`off`要设为NULL
+- 如果`fd`不是pipe, 则对应`off`对应偏移量
+> TODO: 如果有offset, 那被跳过的区域数据会怎么样，fd的偏移量还保持原位的话，再`read`会怎么样? 而另一方面，`write`又会怎么样? (可以写个pipe验证一下)
+> - 猜测由于fd偏移量保持不变, `fd_in`会将被跳过的区域读出; `fd_out`会从偏移位置覆盖?不确定(如果socket咋覆盖啊都发出去了)
+- `len`指定移动数据的长度
+- `flags`控制数据的移动方式(按位或`|`)
+  - `SPLICE_F_MOVE`: 移动内存页而不是复制数据，想法挺好，可惜实现有问题现在失效了
+  - `SPLICE_F_NONBLOCK`: `splice`被设为非阻塞，但如果操作的`fd`会阻塞就还是会阻塞
+  - `SPLICE_F_MORE`: 给内核的提示，指示后续会有更多的`splice`来移动数据，对于`fd_out`是socket的时候很有帮助
+    > (see also the description of MSG_MORE in send(2), and the description of TCP_CORK in tcp(7))
+- 成功时返回移动的字节数, 可能为0, 表示没有数据要移动(当`fd_in`为管道而该管道中无数据)
+
+TODO: 示例回射服务器程序
 
 # tee
 
-在管道之间复制数据，所以input和output必须都是管道
+在管道之间复制数据(也即不消耗管道内的原始数据，仍可以被读), 所以input和output必须都是管道, 也是零拷贝操作。
+```c
+#include <fcntl.h>
+ssize_t tee(int fd_in, int fd_out, size_t len, unsigned int flags);
+```
+- 除了`fd_in`和`fd_out`都必须是管道意外，别的参数含义和`splice`函数一致
+- `flags`也同`splice`函数
+
+TODO: 示例实现linux-tee命令程序
 
 # fcntl
 
+对fd的控制操作
+```c
+#include <fcntl.h>
+int fcntl(int fd, int cmd, ... /* arg */ );
+```
+详见man手册
 
-## 未整理
+示例程序 - 将fd改为非阻塞：
+```c
+#include <unistd.h>
+#include <fcntl.h>
 
-splice; 也是类似sendflie的零拷贝操作
+int setnonblocking(int fd)
+{
+  int old_option = fcntl(fd, F_GETFL);
+  int new_option = old_option | O_NONBLOCK;
+  fcntl(fd, new_option);
+  return old_option; /* 返回旧状态以备用 */
+}
 
-tee; 在两个管道fd间复制数据(零拷贝)，源文件数据还在(有点Linux的tee的感觉)
-
-fcntl; 对fd的控制操作
+```

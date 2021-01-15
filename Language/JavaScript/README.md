@@ -11,3 +11,4 @@
 
 - [基础](js.md)
 - [基础思维导图](JS_basic.km)
+- [for中let和var的作用域](https://blog.csdn.net/m0_37816134/article/details/100053012)

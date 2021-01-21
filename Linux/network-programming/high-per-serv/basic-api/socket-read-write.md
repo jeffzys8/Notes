@@ -15,10 +15,12 @@ ssize_t send(int __fd, const void *__buf, size_t __n, int __flags);
 - 正常读返回读取数据的长度(可能小于给定的`len`，因此可能需要多次调用才能取得完整数据)
 - 返回0意味着通信对方关闭了连接
 - 出错时返回 -1 并设置errno
+- socket默认阻塞，当无数据可读调用`recv`时，会阻塞；而非阻塞也会返回-1，并设置errno为`EAGAIN`(和`EWOULDBLOCK`同义)
 
 `send`:
 - 成功时返回实际写入的数据长度
 - 失败返回 -1 并设置errno
+- 同`recv`，对非阻塞socket调用`send`会返回-1并设置errno为`EAGAIN`
 
 TODO: flags 和 带外数据的示例程序 + 5.9带外标记
 

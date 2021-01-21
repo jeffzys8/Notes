@@ -1,6 +1,6 @@
 # Linux高性能服务器编程
 
-TODO: 待整理
+阅读《Linux高性能服务器编程》的笔记
 
 - [基础API](basic-api/README.md)
 - [高级IO](advanced-io/README.md)

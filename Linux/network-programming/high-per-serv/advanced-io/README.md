@@ -15,7 +15,7 @@ int pipe(int fd[2]);
 ```
 
 - `fd[1]`为写端(只能写)，`fd[0]`为读端(只能读)
-- 两个fd默认阻塞 (TODO: 将两个fd设为非阻塞的行为)
+- 两个fd默认阻塞
 - `fd[1]`引用计数为0时，读`fd[0]`将返回0(即`EOF`)
 - `fd[0]`引用计数为0时，写`fd[1]`将失败并引发`SIGPIPE`信号
 - 管道默认大小为65536Bytes，通过`fcntl`可修改
@@ -39,7 +39,9 @@ int dup2(int oldfd, int newfd);
 
 `dup` 返回一个新的FD, 且和`oldfd`指向相同的文件/管道/网络连接, 返回的FD都是尽量小; 而`dup2`区别就是返回的FD不小于`newfd`
 
-示例程序-CGI服务器原理(关键代码段)
+[示例程序-CGI服务器原理](6-1_dup_cgi.cpp)
+
+关键代码段:
 ```c
 close(STDOUT_FILENO);
 dup(connfd); // `connfd` 是 `accept` 的一个连接
@@ -47,12 +49,11 @@ printf("abcd\n");
 close(connfd);
 ```
 
-上述程序首先关闭了标准输出(值为1)的fd，于是`dup`就会选择最小的可用fd，即为1; `printf`调用实际上是将字符串输出到值为1的FD，因此此处会将`abcd\n`输出到`connfd`对应的网络连接中
-
-- TODO: 疑问: 第二个`close`将`connfd`所指向连接的引用计数-1，那`dup`的连接会不会关闭? 进而这个网络连接会不会关闭?
+- 上述程序首先关闭了标准输出(值为1)的fd，于是`dup`就会选择最小的可用fd，即为1; `printf`调用实际上是将字符串输出到值为1的FD，因此此处会将`abcd\n`输出到`connfd`对应的网络连接中
+- **但后面`close(connfd)`是有问题的**，`connfd`所指向连接被`dup`复制了一份，因此单纯关闭`connfd`只是连接的引用计数-1，并没有关闭连接
+- 如果使用`shutdown`或者对复制的socket也使用`close`则会关闭网络连接
+- 但如此做会发现并没有将`abcd\n`发送到client，这是因为将标准输入关闭以后，类似重定向的操作，`printf`由行缓冲变成了全缓冲，该调用并不能使缓冲区占满，可参考[这个博客](https://blog.csdn.net/yanhuan136675/article/details/79394756)；解决方法是调用`fflush`刷新缓冲区
 - TODO: 疑问: 有没有办法将关闭的STDOUT再开回来，或者说STDOUT的初始化流程是怎么样的
-
-> TODO: 单就创建一个sock_addr --> bind --> listen 这一过程重复代码很多，可以写个库封装一下
 
 # readv 和 writev
 
@@ -125,17 +126,17 @@ ssize_t splice(int fd_in, loff_t *off_in, int fd_out,
 
 - 如果`fd`(`fd_in`或`fd_out`, 下同)为pipe, 则对应`off`要设为NULL
 - 如果`fd`不是pipe, 则对应`off`对应偏移量
-> TODO: 如果有offset, 那被跳过的区域数据会怎么样，fd的偏移量还保持原位的话，再`read`会怎么样? 而另一方面，`write`又会怎么样? (可以写个pipe验证一下)
+> TODO: 如果有offset, 那被跳过的区域数据会怎么样，fd的偏移量还保持原位的话，再`read`会怎么样? 而另一方面，`write`又会怎么样? (可以写个pipe验证一下) (offset没弄明白怎么用)
 > - 猜测由于fd偏移量保持不变, `fd_in`会将被跳过的区域读出; `fd_out`会从偏移位置覆盖?不确定(如果socket咋覆盖啊都发出去了)
 - `len`指定移动数据的长度
 - `flags`控制数据的移动方式(按位或`|`)
   - `SPLICE_F_MOVE`: 移动内存页而不是复制数据，想法挺好，可惜实现有问题现在失效了
-  - `SPLICE_F_NONBLOCK`: `splice`被设为非阻塞，但如果操作的`fd`会阻塞就还是会阻塞
+  - `SPLICE_F_NONBLOCK`: `splice`被设为非阻塞，但如果操作的`fd`会阻塞就还是会阻塞 (TODO: `splice`非阻塞的效果)
   - `SPLICE_F_MORE`: 给内核的提示，指示后续会有更多的`splice`来移动数据，对于`fd_out`是socket的时候很有帮助
     > (see also the description of MSG_MORE in send(2), and the description of TCP_CORK in tcp(7))
 - 成功时返回移动的字节数, 可能为0, 表示没有数据要移动(当`fd_in`为管道而该管道中无数据)
 
-TODO: 示例回射服务器程序
+[示例-回射服务器程序](6-4_splice_reflect.cpp)
 
 # tee
 
@@ -147,7 +148,9 @@ ssize_t tee(int fd_in, int fd_out, size_t len, unsigned int flags);
 - 除了`fd_in`和`fd_out`都必须是管道意外，别的参数含义和`splice`函数一致
 - `flags`也同`splice`函数
 
-TODO: 示例实现linux-tee命令程序
+[示例 - 使用splice和tee实现bash的tee命令](6-5_tee.cpp)
+
+> 这是manpage的示例代码, 使用示例:`date |./a.out out.log | cat`
 
 # fcntl
 

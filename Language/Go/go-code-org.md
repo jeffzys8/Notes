@@ -1,7 +1,9 @@
 # Go 代码组织
-[How to write go codes](https://golang.org/doc/code.html#Workspaces)
 
-> 看起来这是旧版本的东西了(基于`GOPATH`那一套)
+
+- [How to write go codes(with go modules)](https://golang.org/doc/code.html)
+- [How to write go codes(with `$GOPATH`)](https://golang.org/doc/gopath_code.html)
+> `$GOPATH`是旧的方式，在使用`godep`之类的工具时还会用到
 
 
 ## Go Modules

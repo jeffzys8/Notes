@@ -7,6 +7,11 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestCurrency(t *testing.T) {
+	assert.Equal(t, money.DollarString, money.NewDollar(1).Currency())
+	assert.Equal(t, money.YuanString, money.NewYuan(1).Currency())
+}
+
 func TestDollarAdd(t *testing.T) {
 	two := money.NewDollar(2)
 	three := money.NewDollar(3)
@@ -21,10 +26,12 @@ func TestDollarTimes(t *testing.T) {
 	assert.True(t, five.Equal(twoAndHalf.Times(2)))
 }
 
-func TestDollarEquality(t *testing.T) {
-	five := money.NewDollar(5)
-	anotherFive := money.NewDollar(5)
+func TestMoneyEquality(t *testing.T) {
+	var five money.IMoney = money.NewDollar(5)
+	var anotherFive money.IMoney = money.NewDollar(5)
+	var fiveYuan money.IMoney = money.NewYuan(5)
 	assert.True(t, five.Equal(anotherFive))
+	assert.False(t, five.Equal(fiveYuan))
 }
 
 func TestYuanAdd(t *testing.T) {
@@ -32,12 +39,6 @@ func TestYuanAdd(t *testing.T) {
 	three := money.NewYuan(3)
 	five := money.NewYuan(5)
 	assert.True(t, five.Equal(two.Add(three)))
-}
-
-func TestYuanEquality(t *testing.T) {
-	five := money.NewYuan(5)
-	anotherFive := money.NewYuan(5)
-	assert.True(t, five.Equal(anotherFive))
 }
 
 func TestYuanTimes(t *testing.T) {

@@ -1,38 +1,27 @@
 package money
 
 type Dollar struct {
-	value float64
+	Money
 }
 
-func NewDollar(value float64) Dollar {
-	return Dollar{
-		value: value,
-	}
+func (d Dollar) Add(toAdd IMoney) IMoney {
+	// if d.Currency() != toAdd.Currency() {
+	// 	return Dollar{}, fmt.Errorf("Adding %v to %v", d.Currency(), toAdd.Currency())
+	// }
+	return NewDollar(d.GetValue() + toAdd.GetValue())
 }
 
-func (d Dollar) Add(toAdd Dollar) Dollar {
-	return NewDollar(d.value + toAdd.value)
-}
-
-func (d Dollar) Equal(another Dollar) bool {
-	return d.value == another.value
-}
-
-func (d Dollar) Times(time int) Dollar {
-	return NewDollar(d.value * float64(time))
-}
-
-func (d Dollar) Currency() Currency {
-	return DollarString
+func (d Dollar) Times(time int) IMoney {
+	return NewDollar(d.GetValue() * float64(time))
 }
 
 func (y Dollar) Reduce(to Currency, bank *Bank) (float64, error) {
 	if to == y.Currency() {
-		return y.value, nil
+		return y.GetValue(), nil
 	}
 	rate, err := bank.GetRate(y.Currency(), to)
 	if err != nil {
 		return 0.0, err
 	}
-	return y.value * rate, nil
+	return y.GetValue() * rate, nil
 }

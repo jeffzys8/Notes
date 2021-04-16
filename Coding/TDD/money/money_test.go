@@ -12,33 +12,30 @@ func TestCurrency(t *testing.T) {
 	assert.Equal(t, money.YuanString, money.NewYuan(1).Currency())
 }
 
-func TestDollarAdd(t *testing.T) {
-	two := money.NewDollar(2)
-	three := money.NewDollar(3)
+func TestEquality(t *testing.T) {
 	five := money.NewDollar(5)
-	assert.True(t, five.Equal(two.Add(three)))
+	anotherFive := money.NewDollar(5)
+	fiveYuan := money.NewYuan(5)
+	assert.True(t, five.Equal(anotherFive))
+	assert.False(t, five.Equal(fiveYuan))
 }
 
-func TestDollarTimes(t *testing.T) {
+func TestTimes(t *testing.T) {
 	twoAndHalf := money.NewDollar(2.5)
 	five := money.NewDollar(5.0)
 
 	assert.True(t, five.Equal(twoAndHalf.Times(2)))
 }
 
-func TestMoneyEquality(t *testing.T) {
-	var five money.IMoney = money.NewDollar(5)
-	var anotherFive money.IMoney = money.NewDollar(5)
-	var fiveYuan money.IMoney = money.NewYuan(5)
-	assert.True(t, five.Equal(anotherFive))
-	assert.False(t, five.Equal(fiveYuan))
-}
-
-func TestYuanAdd(t *testing.T) {
-	two := money.NewYuan(2)
-	three := money.NewYuan(3)
-	five := money.NewYuan(5)
-	assert.True(t, five.Equal(two.Add(three)))
+func TestAdd(t *testing.T) {
+	two := money.NewDollar(2)
+	three := money.NewDollar(3)
+	five := money.NewDollar(5)
+	res, err := two.Add(three)
+	assert.Nil(t, err)
+	assert.True(t, five.Equal(res))
+	res, err = two.Add(money.NewYuan(3))
+	assert.NotNil(t, err)
 }
 
 func TestYuanTimes(t *testing.T) {

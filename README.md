@@ -4,11 +4,14 @@
 
 ## 主目录
 
+- [语言](Language/README.md)
 - [算法](Algorithms/README.md)
-- [Web](Web/README.md)
-- [Linux](Linux/README.md)
+- [编程思想](Coding/README.md)
+- [设计模式](Pattern/README.md)
+- [操作系统](OS/README.md)
+- [网络](Network/README.md)
 - [数据库](Database/README.md)
 - [分布式系统](DistrSys/README.md)
-- [设计模式](Pattern/README.md)
-- [编程语言](Language/README.md)
-- [音视频](Media/README.md)
+- [Web](Web/README.md)
+- [Linux](Linux/README.md)
+- [其他工具](Tools/README.md)

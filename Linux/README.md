@@ -9,7 +9,6 @@
 - [鸟哥的Linux私房菜](https://linux.vbird.org)
 - [Linux就该这么学](https://www.linuxprobe.com/)
 - [Linux工具快速教程](https://linuxtools-rst.readthedocs.io/zh_CN/latest/index.html)
-- 马哥运维视频(Bilibili)
 
 “文科”知识:
 - [Linux历史](basic/history.md) TODO
@@ -44,22 +43,9 @@
 硬件:
 - [主机的服务规划与硬体的关系 - 鸟哥](https://linux.vbird.org/linux_basic/centos7/0130designlinux.php#beforeinstall_service)
 
-## Linux网络编程
-
-- [Linux高性能服务器编程](network-pro/high/../../network-programming/high-per-serv/README.md)
-- [UNP note1](unp/note1.md)
-- [高性能网络编程(一)：单台服务器并发TCP连接数到底可以有多少](http://www.52im.net/thread-561-1-1.html) 很棒的专栏! 下一节就讲C10K问题，值得好好刷一遍
-
-## Unix环境高级编程(APUE)
-
-
 ## Linux From Scratch
 
 - [README](lfs/README.md)
-
-## MIT 6.828
-
-- [README](mit6828/README.md)
 
 ## 未分类
 

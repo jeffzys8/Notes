@@ -94,17 +94,22 @@ struct pollfd {
 
 - `pollfd.events` 传入监控的事件，`pollfd.revents`由内核修改返回发生的事件
 - `nfds`指明`polfd`数组的大小
-- `timeout`单位为毫秒
+- `timeout`单位为毫秒，0立即返回，-1将一直阻塞直至某个事件发生
 
 最主要的一些事件:
 - `POLLIN`: 数据可读
 - `POLLOUT`: 数据可写
 - `POLLERR`: 错误
 - `POLLRDHUP`: TCP连接对端关闭，或对方关闭了写操作(TODO: 对端如何仅关闭写操作并通知?)
+  - 程序可以通过它来直接获知对端关闭连接，而不需要通过`recv`返回0
 - `POLLHUP`:  挂起，比如管道写端被关闭，读端将收到这个这个 (TODO:和`POLLRDHUP`区别?)
 - `POLLNVAL`: fd未打开
 
 ## epoll
+
+- `epoll`是Linux特有的I/O复用函数
+- `select`和`poll`一个很大的问题在于，每次调用都要将fd集传进去，这就带来了将数据从用户空间拷贝到内核空间的消耗
+- `epoll`将需要监控的fd都存在内核的一个时间表，因此关心的fd仅传一次就够了，同时用一个fd来标识这个事件表
 
 ## 资料
 

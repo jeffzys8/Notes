@@ -1,5 +1,3 @@
-这里用来暂时记录最近realx视频需求测试所面临的一些知识点。
-
 webrtc的关键帧策略：https://blog.jianchihu.net/webrtc-research-keyframe-request.html
 
 webrtc名词库：https://webrtcglossary.com/
@@ -12,13 +10,7 @@ Jitter buffer 是什么
 
 h264标准中的视频编码长期参考帧(LTR)：https://zhuanlan.zhihu.com/p/103542912
 
-
-ice 建联的过程还挺复杂的，从首帧优化开发计划有一些ref链接可以看一下
-https://bytedance.feishu.cn/docs/doccnU7fECzW8ARaSfQUBQMqs0g
-
 sdp（多端之间的协商控制）
-
-后端的RTC技术分享：https://bytedance.feishu.cn/docs/doccnfr1cruE5ZIY3FL777a5JqJ?fromFolderUrl=https%253A%252F%252Fbytedance.feishu.cn%2523%2523Fj2zileqP2ZfU331
 
 ## SP相关
 

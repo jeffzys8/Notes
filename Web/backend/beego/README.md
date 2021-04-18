@@ -1,4 +1,6 @@
-# beego执行顺序
+# beego 笔记
+
+## beego执行顺序
 
 https://beego.me/docs/mvc/
 

@@ -68,8 +68,6 @@ int main()
 
 **Chapter3**介绍机器码以及指令集架构提供的抽象, **Chapter4**会进一步介绍处理器是怎么实现的
 
-> 什么时候能再次看懂自己当时写的多周期CPU
-
 ## 存储层级
 
 **Caching**
@@ -129,7 +127,8 @@ Read-only code and data
 ```
 
 **文件**
-- *一切皆文件*
+- UNIX哲学: *一切皆文件*
+- 文件就是字节序列，所有I/O设备(磁盘，键盘，显示器，网络连接)都被表示为一个文件P
 
 ## 网络
 
@@ -137,14 +136,26 @@ Read-only code and data
 
 ## 并发和并行
 
-并发的实现:
+线程级并发：
 - simulate
 - multi-core processors
 - hyperthreading(simultaneous multi-threading):
   - 硬件级别支持线程切换
   - 通常线程切换需要占用20000时钟周期
   - 超线程是线程轮替执行(无切换损耗?)
-
-**Chapter12**详解并发编程
+- **Chapter12**详解并发编程
 
 指令级并行
+- **Chapter4** 介绍Pipelining
+- **Chapter5** 介绍超标量CPU (>1指令/周期)
+
+> 这时候可以再拿出当时自己写的多周期CPU
+
+单指令多数据(SIMD)并行
+- 单个指令用于多个操作
+- 多用于处理图像、视频、声音数据
+
+## 抽象
+
+> **抽象可以说是计算机科学最重要的概念之一**
+

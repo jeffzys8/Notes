@@ -130,3 +130,21 @@ Read-only code and data
 
 **文件**
 - *一切皆文件*
+
+## 网络
+
+**Chapter11**
+
+## 并发和并行
+
+并发的实现:
+- simulate
+- multi-core processors
+- hyperthreading(simultaneous multi-threading):
+  - 硬件级别支持线程切换
+  - 通常线程切换需要占用20000时钟周期
+  - 超线程是线程轮替执行(无切换损耗?)
+
+**Chapter12**详解并发编程
+
+指令级并行

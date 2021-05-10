@@ -19,3 +19,7 @@
 # 项目
 
 - [Go 语言编程之旅：一起用 Go 做项目](https://github.com/go-programming-tour-book/book)
+
+## 其他
+
+- [JSON omit-empty](https://www.sohamkamani.com/golang/omitempty/)

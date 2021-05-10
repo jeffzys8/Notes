@@ -2,6 +2,7 @@
 
 > 模仿 TDD - By Example 的 Money Example; 实现一个多币种结算的包
 
+代码在`/money` 文件夹内
 ## TODO-list
 
 - [x] 测试: 当 ￥:$ = 6.5:1 时, $5 + ￥13 * 2 = $9 = ￥58.5

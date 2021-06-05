@@ -274,9 +274,9 @@ long double|Extended precision|`t`|10/12
   - `%ebp`: frame pointer
 - > 64位有些是以`%r`开头, 刚好后四个都是: `%rsp`,`%rbp`, `%rdi`,`%rsi`
 
-**IA32指令操作数**
+**指令操作数**
 
-- 三种类型的操作数：立即数、寄存器值、内存引用
+- 三种类型的操作数：**立即数、寄存器值、内存引用**
 - 内存引用最复杂
   - 通过计算所得的**有效地址**访问内存数据
   - 最常见的形式是 $Imm(E_b,E_i,s)$
@@ -284,10 +284,27 @@ long double|Extended precision|`t`|10/12
     - $E_b$是基地址寄存器 base register
     - $E_i$是索引寄存器 index regiser
     - s是比例因子 scale factor, 且只能是 1,2,4或8
-  - 有效地址计算: $Imm+R[E_b]+R[E_i]\cdot s$
+  - **有效地址计算公式**: $$Imm+R[E_b]+R[E_i]\cdot s$$
   - 引用数组元素时很常见上面这种形式; 而其他形式也更像是这种形式的特例
 
 TODO: 罗列操作数的表格
+
+**数据移动指令**:
+- 基本上是最常用的指令了
+- 三个类别，每一类执行相同操作，但是操作数大小不同
+  - `S` 和 `D` 都代表操作数，其中`S`只可以是立即数、寄存器值或内存值，而`D`只能是某个寄存器或内存地址
+  - `mov S,D`: $S\rightarrow D$ 
+  - `movs S,D`: $SignExtend(S)\rightarrow D$ 
+  - `movz S,D`: $ZeroExtend(S)\rightarrow D$ 
+  - `pushl S`: Push double word; 以下是运算步骤
+    1. ($R[\%esp]-4)\rightarrow R[\%esp]$
+    2. $S\rightarrow M[R[\%esp]]$
+  - `popl D`: Pop double word; 以下是运算步骤
+    1. $M[R[\%esp]]\rightarrow D$
+    2. $R[\%esp]+4\rightarrow R[\%esp]$
+  - > 从这里也验证一个一直知道的知识点: 栈空间从高位往低位拓展
+
+TODO: 补充`mov`类指令不同操作数大小的指令
 
 ## TODO
 

@@ -260,7 +260,7 @@ long double|Extended precision|`t`|10/12
 
 ## 数据访问
 
-**寄存器**：
+**整数寄存器**：
 - IA32-CPU有8个32位寄存器，存储整数数据和指针(前面有提到过);
 - 这些寄存器都以 `%e` 开头; 
 - 在8086时，每个寄存器有独特的用途，不过flat addressing(线性地址空间)使得寄存器的专用性消失了
@@ -274,6 +274,8 @@ long double|Extended precision|`t`|10/12
   - `%ebp`: frame pointer
 - > 64位有些是以`%r`开头, 刚好后四个都是: `%rsp`,`%rbp`, `%rdi`,`%rsi`
 
+![IA32-Integer-Registers](ia32-int-reg.png)
+
 **指令操作数**
 
 - 三种类型的操作数：**立即数、寄存器值、内存引用**
@@ -285,26 +287,48 @@ long double|Extended precision|`t`|10/12
     - $E_i$是索引寄存器 index regiser
     - s是比例因子 scale factor, 且只能是 1,2,4或8
   - **有效地址计算公式**: $$Imm+R[E_b]+R[E_i]\cdot s$$
-  - 引用数组元素时很常见上面这种形式; 而其他形式也更像是这种形式的特例
+  - 引用数组元素时很常见上面这种形式; 而其他内存表示形式也更像是这种形式的特例
 
-TODO: 罗列操作数的表格
+![IA32-operand-forms](ia32-op-forms.png)
 
 **数据移动指令**:
+- **叫数据拷贝还差不多**
 - 基本上是最常用的指令了
-- 三个类别，每一类执行相同操作，但是操作数大小不同
-  - `S` 和 `D` 都代表操作数，其中`S`只可以是立即数、寄存器值或内存值，而`D`只能是某个寄存器或内存地址
-  - `mov S,D`: $S\rightarrow D$ 
-  - `movs S,D`: $SignExtend(S)\rightarrow D$ 
-  - `movz S,D`: $ZeroExtend(S)\rightarrow D$ 
-  - `pushl S`: Push double word; 以下是运算步骤
-    1. ($R[\%esp]-4)\rightarrow R[\%esp]$
-    2. $S\rightarrow M[R[\%esp]]$
-  - `popl D`: Pop double word; 以下是运算步骤
-    1. $M[R[\%esp]]\rightarrow D$
-    2. $R[\%esp]+4\rightarrow R[\%esp]$
-  - > 从这里也验证一个一直知道的知识点: 栈空间从高位往低位拓展
+- 5个类别，每一类内的所有指令执行相同操作，区别在于操作数大小不同
+  - `S` 和 `D` 都代表操作数，其中`S`(source)只可以是立即数、寄存器值或内存值，而`D`(destination)只能是某个寄存器或内存地址
+  - **两个操作数不能都指向内存**
+  - `mov S,D`: $S\rightarrow D$
+    - `movb`: 移动`byte`(8bit); 寄存器(`%ah`~`%bh`, `%al`~`%bl`)
+    - `movw`: 移动`word`(16bit); 寄存器(`%ax`~`%bp`)
+    - `movl`: 移动`double word`(32bit); 寄存器(`%eax`~`ebp`)
+    -  [ ] 如果立即数长度超过指令规定，会截掉高位吗，还是报警
+  - `movs S,D`: $SignExtend(S)\rightarrow D$
+    - `movsbw`, 移动`byte`到`word`
+    - `movsbl`, 移动`byte`到`double word`
+    - `movswl`, 移动`word`到`double word`
+  - `movz S,D`: $ZeroExtend(S)\rightarrow D$
+    - `movzbw`, `movzbl`, `movzwl`, 操作数大小意义同`movs`
+    - **`movs`是高位补符号位，`movz`是高位补0**
+  - 栈操作
+    - **和函数调用密切相关**
+    - **栈空间从高位往低位拓展**
+    - `pushl S`: Push double word; 以下是运算步骤
+      1. ($R[\%esp]-4)\rightarrow R[\%esp]$
+      2. $S\rightarrow M[R[\%esp]]$
+      - `pushl %ebp`等价于: 
+      1. `subl $4,%esp`
+      2. `movl %ebp,(%esp)`
+    - `popl D`: Pop double word; 以下是运算步骤
+      1. $M[R[\%esp]]\rightarrow D$
+      2. $R[\%esp]+4\rightarrow R[\%esp]$
+      - `popl %eax` 等价于
+      1. `movl (%esp),%eax`
+      2. `addl $4,%esp`
+- disassembler 没有操作数大小后缀, gcc有
+  - IA32内存引用地址都是用的32位寄存器，而且只标明地址，没标明数据大小; 所以实际指令后缀要看另一个操作数的大小 (可见Problem3.2)
+  - 操作数大小和指令不匹配会报错(见Problem3.3)
 
-TODO: 补充`mov`类指令不同操作数大小的指令
+书签: 3.4.3
 
 ## TODO
 

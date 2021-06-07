@@ -301,7 +301,8 @@ long double|Extended precision|`t`|10/12
     - `movb`: 移动`byte`(8bit); 寄存器(`%ah`~`%bh`, `%al`~`%bl`)
     - `movw`: 移动`word`(16bit); 寄存器(`%ax`~`%bp`)
     - `movl`: 移动`double word`(32bit); 寄存器(`%eax`~`ebp`)
-    -  [ ] 如果立即数长度超过指令规定，会截掉高位吗，还是报警
+    -  [ ] **如果立即数长度超过指令规定，会截掉高位吗，还是报警**
+       - 应该是会截掉高位，见Problem 3.4，TOC
   - `movs S,D`: $SignExtend(S)\rightarrow D$
     - `movsbw`, 移动`byte`到`word`
     - `movsbl`, 移动`byte`到`double word`
@@ -328,7 +329,37 @@ long double|Extended precision|`t`|10/12
   - IA32内存引用地址都是用的32位寄存器，而且只标明地址，没标明数据大小; 所以实际指令后缀要看另一个操作数的大小 (可见Problem3.2)
   - 操作数大小和指令不匹配会报错(见Problem3.3)
 
-书签: 3.4.3
+**数据移动示例**
+
+```c
+int exchange(int *xp, int y) {
+    int x = *xp;
+    *xp = y;
+    return x;
+}
+```
+
+```
+<!-- gcc -O1 -S -m32 -->
+movl	4(%esp), %eax
+movl	(%eax), %edx
+movl	8(%esp), %ecx
+movl	%ecx, (%eax)
+movl	%edx, %eax
+```
+
+- 跟书上(3.4.3)所得结果有些差异，但不算大:
+  - `x`并没有直接存到`%eax`，而是在最后一步才从`%edx`存到`%eax`
+  - 因为一开始取`*xp` 先取到了`%eax`(并没有那么聪明)
+- 值得关注的点：
+  - C指针存的是地址值，解引用首先先从栈中取出该地址到寄存器，然后再利用该寄存器得到一个内存地址引用
+  - 局部变量通常存在寄存器中，能不用到内存就不用(这个估计要到编译原理才能搞懂编译器是怎么判断的了)
+  - **int函数返回值是 `%eax`, TOC**
+- Problem 3.4，将int存到char(强制类型转换): `movb %al, (%edx)`
+
+## 算数逻辑操作
+
+TODO: 3.5
 
 ## TODO
 

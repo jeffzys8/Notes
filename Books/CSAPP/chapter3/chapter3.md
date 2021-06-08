@@ -380,6 +380,20 @@ movl	%edx, %eax
 - **第二个操作数`D`既是source也是destination**
 - **形式都是 `D [op] S --> D`**, 比如`SUB S,D` 就是 `D-S-->D`
 - 操作数形式规则和`mov`一样，`S`可以是立即数/寄存器值/内存值, `D`只能是寄存器/内存, **且两个操作数不能同时为内存地址**
+- 优化`x=0`的存储(Problem3.10)
+  - `xorl %edx,%edx`只用2bytes存，而`movl $0,%edx`需要5bytes!
+
+**移位运算符**:
+- 第一个操作数是shift amount，第二个是被shift的数
+- shift amount可以为立即数，**但只能是寄存器%cl**
+- 由于shift amount只会属于 [0, 31], 因此只用1byte存, 且只取低位的5byte
+- `SAL`, `SHL` 是等价的左移运算符
+- `SHR`是逻辑右移(填0), `SAR`是算术右移(填1)
+  - 可以想到无符号数要用`SHR`, 有符号数要用`SAR`
+
+> 别忘了除了`leal`以外，上述指令都有不同操作数大小之分
+
+TODO: 3.5.5
 
 ## TODO
 

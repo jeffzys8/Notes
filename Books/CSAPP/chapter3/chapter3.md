@@ -359,7 +359,27 @@ movl	%edx, %eax
 
 ## 算数逻辑操作
 
-TODO: 3.5
+![IA32-Arithmatic-Logic-Operations](ia32-arith-logic-ops.png)
+**除了 `leal` 以外，表中别的运算符都有不同操作数大小的后缀**
+
+**获取有效地址**:
+- `leal S,D`: $\&S\rightarrow D$, 其中`&`是指取地址符(类似C中的)
+- 长的像`movl`，但不是取`S`的值，而是地址本身；所以其实本质上就是进行有效地址计算，可参见前文的**有效地址计算公式**
+- **`D`必须是个寄存器**
+- 用于指针取址操作
+- **也以后可能用来简化一般的算术运算**
+  - `leal 7(%edx,%edx,4), %eax` 其实是将 `5*[%edx]+7`赋值给`[%eax]`
+  - 不过要注意比例因子只能是 1,2,4,8
+
+**单目运算符**:
+- `INC`自增1,`DEC`自减1,`NEG`取负,`NOT`取反
+- **操作数可以是寄存器也可以是内存地址**
+
+**双目运算符**:
+- `ADD`,`SUB`,`IMUL`,`XOR`,`OR`,`AND`
+- **第二个操作数`D`既是source也是destination**
+- **形式都是 `D [op] S --> D`**, 比如`SUB S,D` 就是 `D-S-->D`
+- 操作数形式规则和`mov`一样，`S`可以是立即数/寄存器值/内存值, `D`只能是寄存器/内存, **且两个操作数不能同时为内存地址**
 
 ## TODO
 
@@ -367,3 +387,5 @@ RIP, RBP, RSP, RDI, etc.
 These are the same as EIP, EBP, ESP, EDI, etc. but are used in 64-bit systems. Essentially, they are the same names except with an R instead of an E.
 
 x86寄存器列表 https://www.eecg.utoronto.ca/~amza/www.mindsec.com/files/x86regs.html
+
+为什么两个操作数不能同时为内存地址(mov, 双目算数逻辑运算符)

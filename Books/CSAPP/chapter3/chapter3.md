@@ -382,6 +382,7 @@ movl	%edx, %eax
 - 操作数形式规则和`mov`一样，`S`可以是立即数/寄存器值/内存值, `D`只能是寄存器/内存, **且两个操作数不能同时为内存地址**
 - 优化`x=0`的存储(Problem3.10)
   - `xorl %edx,%edx`只用2bytes存，而`movl $0,%edx`需要5bytes!
+- **2.3.4和2.3.5解释了 32-bit * 32-bit 留 32-bit, 对于有符号和无符号来说是一样的，因此`IMUL`没分有符号无符号**
 
 **移位运算符**:
 - 第一个操作数是shift amount，第二个是被shift的数
@@ -393,7 +394,38 @@ movl	%edx, %eax
 
 > 别忘了除了`leal`以外，上述指令都有不同操作数大小之分
 
-TODO: 3.5.5
+**特殊操作符**:
+- 乘法
+  - 这里的`imull`算的是有符号 `32-bit*32-bit=64bit` (注意到如果是保留64-bit的话有符号无符号就有区别了); 
+  - **对于`imull`, 两个操作数代表上面的(`32*32-->32`)的, 一个操作数就是这里`32*32=64bit`**
+  - 对应的`mul`是无符号的`32*32=64bit`
+  - 对于上述两个乘法操作，都只有一个操作数`S`, 运算过程都是 $S\times R[\%eax] \rightarrow R[\%edx]:R[\%eax]$
+- 除法
+  - `idivl S`: 有符号除法
+    - $R[\%edx]:R[\%eax] mod\ S  \rightarrow R[\%edx]$
+    - $R[\%edx]:R[\%eax] \div S  \rightarrow R[\%eax]$
+  - 当需要除一个有符号32位数时，显然需要先extend
+    ```
+    1 movl    8(%ebp), %edx // Put x in %edx
+    2 movl    %edx, %eax // Copy x to %eax
+    3 sarl    $31, %edx // Sign extend x in  %edx 
+    4 idivl   12(%ebp)  // Divide by y
+    5 movl    %eax, 4(%esp) // Store x/y
+    6 movl    %edx, (%esp) // Store x%y
+    ```
+    line1~3就是有符号extend并存到%eax，可以直接用指令`cltd`替换(Intel里叫`cdq`)，该指令有符号扩充%eax到%edx
+    ```
+    1 movl    8(%ebp), %adx // Put x in %eax
+    2 cltd    // Sign exted into %edx
+    3 idivl   12(%ebp)  // Divide by y
+    4 movl    %eax, 4(%esp) // Store x/y
+    5 movl    %edx, (%esp) // Store x%y
+    ```
+  - `divl S`: 无符号除法， 这时候给`%edx`extend就直接扩充0就行了
+
+![IA32-Special-Arithmetic-Operations](ia32-spec-arith-ops.png)
+
+TODO: Problem 3.12 搞不懂
 
 ## TODO
 

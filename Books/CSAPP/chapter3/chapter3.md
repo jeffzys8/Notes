@@ -427,6 +427,16 @@ movl	%edx, %eax
 
 TODO: Problem 3.12 搞不懂
 
+## 控制语句
+
+控制流 v.s. 数据流?
+
+**状态码**
+- 单bit寄存器，保存最近的算术、逻辑操作结果
+- TODO: 补图 CF, ZF, SF, OF
+- TODO: 各个状态码的计算方式(int例子)
+- `leal`不会改变状态码，因为本身就是为了取地址而存在的
+
 ## TODO
 
 RIP, RBP, RSP, RDI, etc.

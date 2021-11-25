@@ -130,6 +130,7 @@ unsigned uy = sx; // bit: ff ff cf c7
 
 应该用 `i < len` 代替 `i <= len-1`以避免溢出bug: 
 ```c
+// 如果传入 length == 0 就会出现数组越界
 float sum_elements(float a[], unsigned length) 
 {
   int i;

@@ -316,7 +316,7 @@ func (s *sub) loop() {
 }
 ```
 
-### 处理`Fetch`
+### 包装`Fetch`
 
 > 未完待续
 
@@ -325,6 +325,8 @@ func (s *sub) loop() {
 - 需要不阻塞
 
 > 仍然存在问题，如果Fetch长时间阻塞？
+
+> 我也有个问题，假如在Next时间到达之前Closed了，而且Next的时间很长，`time.After` channel不也leak了吗
 
 ```Go
 func (s *sub) loop() {
@@ -351,6 +353,10 @@ func (s *sub) loop() {
     }
 }
 ```
+
+###  将数据发送到用户channel
+
+TODO: 仔细阅读是怎么解决在无数据可send的时候用 nil channel 屏蔽发送case的
 
 
 ## TODO: 完整代码走读
